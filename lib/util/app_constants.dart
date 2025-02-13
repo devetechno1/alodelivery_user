@@ -12,10 +12,10 @@ class AppConstants {
   static const String fontFamily = 'Roboto';
   static const bool payInWevView = false;
   static const int balanceInputLen = 10;
-  static const String webHostedUrl = 'https://gomla212.devetechno.co.uk';
+  static const String webHostedUrl = 'https://alodelivery.online';
   static const bool useReactWebsite = false;
 
-  static const String baseUrl = 'https://gomla212.devetechno.co.uk/cp';
+  static const String baseUrl = 'https://alodelivery.online';
   static const String categoryUri = '/api/v1/categories';
   static const String offersUri = '/api/v1/items/discounted';
   static const String bannerUri = '/api/v1/banners';
@@ -287,7 +287,7 @@ class AppConstants {
 
   /// By making [mustLogin] true, this will make user login first and he can't see anything inside the before login
   /// we can change it from Dashboard in configuration
-  static bool mustLogin = true;
+  static bool mustLogin = false;
 
   /// By making [makeSubCatImgAndBrands] true, this will make sub cat with images in cat screen and show the brands and in sub cat
   static const bool makeSubCatImgAndBrands = true;
