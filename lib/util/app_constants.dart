@@ -4,7 +4,7 @@ import 'package:sixam_mart/features/language/domain/models/language_model.dart';
 import 'package:sixam_mart/util/images.dart';
 
 class AppConstants {
-  static const String appName = 'User Devetechno';
+  static const String appName = 'Alo Delivery';
   static const double appVersion = 2.12;
 
   ///Flutter Version: 3.24.5
@@ -170,11 +170,10 @@ class AppConstants {
   static const String firebaseAuthVerify = '/api/v1/auth/firebase-verify-token';
   static const String personalInformationUri = '/api/v1/auth/update-info';
   static const String firebaseResetPassword =
-'/api/v1/auth/firebase-reset-password';
+      '/api/v1/auth/firebase-reset-password';
 
   static const String provinces = '/api/v1/provinces';
   static const String brandCategoryUri = '/api/v1/brand/brands-by-category';
-
 
   ///Subscription
   static const String businessPlanUri = '/api/v1/vendor/business_plan';
@@ -289,7 +288,7 @@ class AppConstants {
   /// By making [mustLogin] true, this will make user login first and he can't see anything inside the before login
   /// we can change it from Dashboard in configuration
   static bool mustLogin = true;
-  
+
   /// By making [makeSubCatImgAndBrands] true, this will make sub cat with images in cat screen and show the brands and in sub cat
   static const bool makeSubCatImgAndBrands = true;
 
@@ -323,15 +322,13 @@ class AppConstants {
   /// By making [showPopularItemsInSubCategories] true, this will show all available popular items in this sub category and not showing it in brand data.
   static const bool showPopularItemsInSubCategories = true;
 
-
-
   // ----------------------------------------------------------------
 
-  /// When [useUserZoneInDelivery] is set to true, the delivery calculation 
-  /// will be based on the user's zone. 
+  /// When [useUserZoneInDelivery] is set to true, the delivery calculation
+  /// will be based on the user's zone.
   /// This activates the following condition:
   /// m.pivot!.zoneId == AddressHelper.getUserAddressFromSharedPref()!.zoneId
-  /// 
+  ///
   /// This ensures that deliveries are restricted to the user's current zone.
   static const bool useUserZoneInDelivery = false;
 
