@@ -1,4 +1,4 @@
-package com.devetechno.master
+package com.alodelivery
 
 import io.flutter.embedding.android.FlutterActivity
 
