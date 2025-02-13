@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBDyIfztm_y-qBpRZ1pbuFhg-7Q-xvNHmA</string>
+	<string>AIzaSyBv5ESdjYaVXXpax8Yps_iWr1D_HlGpsuc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>496804581818</string>
+	<string>443729581845</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.devetechno.master</string>
+	<string>com.alodelivery</string>
 	<key>PROJECT_ID</key>
-	<string>multi-master-1</string>
+	<string>alodelivery974</string>
 	<key>STORAGE_BUCKET</key>
-	<string>multi-master-1.firebasestorage.app</string>
+	<string>alodelivery974.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:496804581818:ios:9ad9e1309a3e0114884d83</string>
+	<string>1:443729581845:ios:4366fab3cc110d1e887b1c</string>
 </dict>
 </plist>

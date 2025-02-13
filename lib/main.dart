@@ -60,21 +60,21 @@ Future<void> main() async {
 
   if(GetPlatform.isWeb){
     await Firebase.initializeApp(options: const FirebaseOptions(
-      apiKey: "AIzaSyAqoDzXTwqLpGxNOJGj5D1mL1e-2aYb_Mc",
-      authDomain: "multi-master-1.firebaseapp.com",
-      projectId: "multi-master-1",
-      storageBucket: "multi-master-1.firebasestorage.app",
-      messagingSenderId: "496804581818",
-      appId: "1:496804581818:web:a67caf5bd69f2272884d83",
-      measurementId: "G-FJL4MK8MZH"
+      apiKey: "AIzaSyBzozOqwNzFWAy4v7foN4I71qo-4LsnB90",
+      authDomain: "alodelivery974.firebaseapp.com",
+      projectId: "alodelivery974",
+      storageBucket: "alodelivery974.firebasestorage.app",
+      messagingSenderId: "443729581845",
+      appId: "1:443729581845:web:a0e3f65440a0e723887b1c",
+      measurementId: "G-0DG54VRWY9"
     ));
   } else if(GetPlatform.isAndroid) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyBP9f-5k7CiZlNOZRr4jqr1JLOYQXBWltc",
-        appId: "1:496804581818:android:bbce6f4934340529884d83",
-        messagingSenderId: "496804581818",
-        projectId: "multi-master-1",
+        apiKey: "AIzaSyDWeihHXkwBnVGRxazlAvPFtjtQXKLhvac",
+        appId: "1:443729581845:android:7e7d22b64c017d19887b1c",
+        messagingSenderId: "443729581845",
+        projectId: "alodelivery974",
       ),
     );
   } else {
