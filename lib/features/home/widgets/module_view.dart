@@ -32,16 +32,17 @@ class ModuleView extends StatelessWidget {
         return const BannerView(isFeatured: true);
       }),
 
-      splashController.moduleList != null ? splashController.moduleList!.isNotEmpty ? GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, mainAxisSpacing: Dimensions.paddingSizeSmall,
-          crossAxisSpacing: Dimensions.paddingSizeSmall, childAspectRatio: (1/1),
-        ),
+      splashController.moduleList != null ? splashController.moduleList!.isNotEmpty ? ListView.builder(
+        // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //   crossAxisCount: 3, mainAxisSpacing: Dimensions.paddingSizeSmall,
+        //   crossAxisSpacing: Dimensions.paddingSizeSmall, childAspectRatio: (1/1),
+        // ),
         padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
         itemCount: splashController.moduleList!.length,
         shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Container(
+            margin: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
               color: Theme.of(context).cardColor,
@@ -50,23 +51,33 @@ class ModuleView extends StatelessWidget {
             ),
             child: CustomInkWell(
               onTap: () => splashController.switchModule(index, true),
+              padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
               radius: Dimensions.radiusDefault,
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              child: Row(children: [
 
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                  child: CustomImage(
-                    image: '${splashController.moduleList![index].iconFullUrl}',
-                    height: 50, width: 50,
+                SizedBox(
+                  height: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                    child: AspectRatio(
+                      aspectRatio: 3,
+                      child: CustomImage(
+                        image: '${splashController.moduleList![index].thumbnailFullUrl}',
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: Dimensions.paddingSizeSmall),
+                const SizedBox(width: Dimensions.paddingSizeExtraLarge),
 
-                Center(child: Text(
-                  splashController.moduleList![index].moduleName!,
-                  textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis,
-                  style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
-                )),
+                Flexible(
+                  child: Text(
+                    splashController.moduleList![index].moduleName!,
+                    textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis,
+                    style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault),
+                  ),
+                ),
 
               ]),
             ),
@@ -150,16 +161,17 @@ class ModuleShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3, mainAxisSpacing: Dimensions.paddingSizeSmall,
-        crossAxisSpacing: Dimensions.paddingSizeSmall, childAspectRatio: (1/1),
-      ),
+    return ListView.builder(
+      // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //   crossAxisCount: 3, mainAxisSpacing: Dimensions.paddingSizeSmall,
+      //   crossAxisSpacing: Dimensions.paddingSizeSmall, childAspectRatio: (1/1),
+      // ),
       padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
       itemCount: 6,
       shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
+          margin: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
             color: Theme.of(context).cardColor,
@@ -168,17 +180,26 @@ class ModuleShimmer extends StatelessWidget {
           child: Shimmer(
             duration: const Duration(seconds: 2),
             enabled: isEnabled,
-            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-
-              Container(
-                height: 50, width: 50,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall), color: Colors.grey[300]),
-              ),
-              const SizedBox(height: Dimensions.paddingSizeSmall),
-
-              Center(child: Container(height: 15, width: 50, color: Colors.grey[300])),
-
-            ]),
+            child: Padding(
+              padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+              child: Row(children: [
+              
+                SizedBox(
+                  height: 80,
+                  child: AspectRatio(
+                    aspectRatio: 3,
+                    child: Container(
+                      height: 80,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall), color: Colors.grey[300]),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: Dimensions.paddingSizeExtraLarge),
+              
+                Container(height: 15, width: 50, color: Colors.grey[300]),
+              
+              ]),
+            ),
           ),
         );
       },

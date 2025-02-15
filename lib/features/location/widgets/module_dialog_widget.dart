@@ -33,40 +33,55 @@ class ModuleDialogWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                 color: Theme.of(context).colorScheme.surface,
               ),
-              child: splashController.moduleList != null ? GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, childAspectRatio: (1/1),
-                  mainAxisSpacing: Dimensions.paddingSizeLarge, crossAxisSpacing: Dimensions.paddingSizeLarge,
-                ),
+              child: splashController.moduleList != null ? ListView.builder(
+                // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //   crossAxisCount: 3, childAspectRatio: (1/1),
+                //   mainAxisSpacing: Dimensions.paddingSizeLarge, crossAxisSpacing: Dimensions.paddingSizeLarge,
+                // ),
                 itemCount: splashController.moduleList!.length,
                 shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Get.find<SplashController>().setModule(splashController.moduleList![index]);
-                      callback();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                        color: Theme.of(context).cardColor,
-                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 5)],
+                  return Padding(
+                    padding: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                      onTap: () {
+                        Get.find<SplashController>().setModule(splashController.moduleList![index]);
+                        callback();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                          color: Theme.of(context).cardColor,
+                          boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 5)],
+                        ),
+                        child: Row(children: [
+                    
+                          SizedBox(
+                            height: 80,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                              child: AspectRatio(
+                                aspectRatio: 3,
+                                child: CustomImage(
+                                  image: '${splashController.moduleList![index].thumbnailFullUrl}',
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: Dimensions.paddingSizeExtraLarge),
+                    
+                          Text(
+                            splashController.moduleList![index].moduleName!,
+                            style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+                          ),
+                    
+                        ]),
                       ),
-                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-
-                        CustomImage(
-                          image: '${splashController.moduleList![index].iconFullUrl}',
-                          height: 80, width: 80,
-                        ),
-                        const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                        Text(
-                          splashController.moduleList![index].moduleName!,
-                          style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
-                        ),
-
-                      ]),
                     ),
                   );
                 },
