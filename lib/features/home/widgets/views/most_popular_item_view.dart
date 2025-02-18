@@ -14,21 +14,19 @@ import 'package:sixam_mart/common/widgets/title_widget.dart';
 class MostPopularItemView extends StatelessWidget {
   final bool isFood;
   final bool isShop;
-  final String? categoryId;
-  const MostPopularItemView({super.key, required this.isFood, required this.isShop, this.categoryId});
+  const MostPopularItemView({super.key, required this.isFood, required this.isShop});
 
   @override
   Widget build(BuildContext context) {
     bool isShop = Get.find<SplashController>().module != null && Get.find<SplashController>().module!.moduleType.toString() == AppConstants.ecommerce;
-    if(categoryId != null) Get.find<ItemController>().getPopularItemListInCategory('all', categoryId!);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
       child: GetBuilder<ItemController>(builder: (itemController) {
-        List<Item>? itemList = categoryId != null ? itemController.popularItemListInCategory: itemController.popularItemList;
+        List<Item>? itemList = itemController.popularItemList;
 
           return (itemList != null) ? itemList.isNotEmpty ? Container(
-            color: categoryId != null? null : Theme.of(context).primaryColor.withOpacity(0.1),
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
             child: Column(children: [
 
               Padding(
@@ -53,7 +51,6 @@ class MostPopularItemView extends StatelessWidget {
                       child: ItemCard(
                         isPopularItem: isShop ? false : true,
                         isPopularItemCart: true,
-                        index: index,
                         item: itemList[index],
                         isShop: isShop,
                         isFood: isFood,

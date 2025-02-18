@@ -34,7 +34,7 @@ class ItemImageViewWidget extends StatelessWidget {
           InkWell(
             onTap: isCampaign ? null : () {
               if(!isCampaign) {
-                Navigator.of(context).pushNamed(RouteHelper.getItemImagesRoute(item!,itemController.imageSliderIndex), arguments: ItemImageViewWidget(item: item));
+                Navigator.of(context).pushNamed(RouteHelper.getItemImagesRoute(item!), arguments: ItemImageViewWidget(item: item));
               }
             },
             child: Stack(children: [
@@ -47,9 +47,9 @@ class ItemImageViewWidget extends StatelessWidget {
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: CustomImage(
-                      image: '${isCampaign ? imageListForCampaign[index] : imageList[index]}',
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
+                        image: '${isCampaign ? imageListForCampaign[index] : imageList[index]}',
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
                       ),
                     );
                   },
@@ -59,27 +59,19 @@ class ItemImageViewWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 0, right: 0, bottom: Dimensions.paddingSizeSmall,
-                child: Align(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: _indicators(context, itemController, isCampaign ? imageListForCampaign : imageList),
-                    ),
+                left: 0, right: 0, bottom: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: Dimensions.paddingSizeSmall),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _indicators(context, itemController, isCampaign ? imageListForCampaign : imageList),
                   ),
                 ),
               ),
-    
+
             ]),
           ),
-    
+
       ]);
     });
   }

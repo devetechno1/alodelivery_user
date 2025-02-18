@@ -1,4 +1,3 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:sixam_mart/common/widgets/address_widget.dart';
 import 'package:sixam_mart/features/address/controllers/address_controller.dart';
@@ -37,8 +36,6 @@ import 'package:get/get.dart';
 import 'package:sixam_mart/features/checkout/widgets/bottom_section.dart';
 import 'package:sixam_mart/features/checkout/widgets/top_section.dart';
 import 'package:flutter/material.dart';
-
-import '../../location/controllers/location_controller.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final List<CartModel?>? cartList;
@@ -224,11 +221,11 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           double additionalCharge =  Get.find<SplashController>().configModel!.additionalChargeStatus!
               ? Get.find<SplashController>().configModel!.additionCharge! : 0;
           double originalCharge = _calculateOriginalDeliveryCharge(
-            store: checkoutController.store, address: AddressHelper.getUserAddressFromSharedPref()!,chosenAddress:address[checkoutController.addressIndex!],
+            store: checkoutController.store, address: AddressHelper.getUserAddressFromSharedPref()!,
             distance: checkoutController.distance, extraCharge: checkoutController.extraCharge,
           );
           double deliveryCharge = _calculateDeliveryCharge(
-            store: checkoutController.store, address: AddressHelper.getUserAddressFromSharedPref()!, distance: checkoutController.distance,chosenAddress:address[checkoutController.addressIndex!],
+            store: checkoutController.store, address: AddressHelper.getUserAddressFromSharedPref()!, distance: checkoutController.distance,
             extraCharge: checkoutController.extraCharge, orderType: checkoutController.orderType!, orderAmount: orderAmount,
           );
 
@@ -249,20 +246,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
 
           total = total - referralDiscount;
 
-          int? paymentMethod;
-          if(checkoutController.paymentMethodIndex != -1){
-            paymentMethod = checkoutController.paymentMethodIndex;
-          }else if(_isCashOnDeliveryActive ?? false){
-            paymentMethod = 0;
-          }else if(_isWalletActive){
-            paymentMethod = 1;
-          }else if(_isDigitalPaymentActive ?? false){
-            paymentMethod = 2;
-          }else if(_isOfflinePaymentActive){
-            paymentMethod = 3;
-          }
-          if(widget.storeId != null || paymentMethod != null){
-            checkoutController.setPaymentMethod(paymentMethod ?? 0, isUpdate: false);
+          if(widget.storeId != null){
+            checkoutController.setPaymentMethod(0, isUpdate: false);
           }
           checkoutController.setTotalAmount(total - (checkoutController.isPartialPay ? Get.find<ProfileController>().userInfoModel!.walletBalance! : 0));
 
@@ -399,7 +384,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         child: CustomButton(
           isLoading: checkoutController.isLoading,
           buttonText: 'place_order'.tr,
-          onPressed: checkoutController.acceptTerms ? () async{
+          onPressed: checkoutController.acceptTerms ? () {
           bool isAvailable = true;
           DateTime scheduleStartDate = DateTime.now();
           DateTime scheduleEndDate = DateTime.now();
@@ -444,7 +429,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
             showCustomSnackBar('confirm_password_does_not_matched'.tr);
           }else if(isPrescriptionRequired && checkoutController.pickedPrescriptions.isEmpty) {
             showCustomSnackBar('you_must_upload_prescription_for_this_order'.tr);
-          } else if(!_isCashOnDeliveryActive! && !_isDigitalPaymentActive! && !_isWalletActive && !_isOfflinePaymentActive) {
+          } else if(!_isCashOnDeliveryActive! && !_isDigitalPaymentActive! && !_isWalletActive) {
             showCustomSnackBar('no_payment_method_is_enabled'.tr);
           }else if(checkoutController.paymentMethodIndex == -1) {
             if(ResponsiveHelper.isDesktop(context)){
@@ -487,26 +472,6 @@ class CheckoutScreenState extends State<CheckoutScreen> {
             showCustomSnackBar('please_upload_your_prescription_images'.tr);
           }else if (!checkoutController.acceptTerms) {
             showCustomSnackBar('please_accept_privacy_policy_trams_conditions_refund_policy_first'.tr);
-          }else if (address.length <= 1){
-            var address = await Get.toNamed(RouteHelper.getAddAddressRoute(true, false, checkoutController.store!.zoneId));
-            if(address != null) {
-              checkoutController.getDistanceInKM(
-                LatLng(double.parse(address.latitude), double.parse(address.longitude)),
-                LatLng(double.parse(checkoutController.store!.latitude!), double.parse(checkoutController.store!.longitude!)),
-              );
-              checkoutController.streetNumberController.text = address.streetNumber ?? '';
-              checkoutController.houseController.text = address.house ?? '';
-              checkoutController.floorController.text = address.floor ?? '';
-              final AddressModel? add = await Get.find<LocationController>().prepareZoneInCheckout(this.address[checkoutController.addressIndex!]);
-              if(add != null) this.address[checkoutController.addressIndex!] = add;
-              
-            }
-          }else if(checkoutController.orderType != 'take_away' && checkoutController.streetNumberController.text.isEmpty) {
-            showCustomSnackBar('write_address'.tr);
-          }else if(checkoutController.orderType != 'take_away' && checkoutController.houseController.text.isEmpty) {
-            showCustomSnackBar('please_enter_governorate'.tr);
-          }else if(checkoutController.orderType != 'take_away' && checkoutController.floorController.text.isEmpty) {
-            showCustomSnackBar('please_enter_city'.tr);
           }
           else {
 
@@ -571,7 +536,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     && Get.find<CouponController>().freeDelivery)) ? Get.find<CouponController>().coupon!.code : null,
                 storeId: _cartList![0]!.item!.storeId,
                 address: finalAddress!.address, latitude: finalAddress.latitude, longitude: finalAddress.longitude,
-                senderZoneId: finalAddress.zoneId, addressType: finalAddress.addressType,
+                senderZoneId: null, addressType: finalAddress.addressType,
                 contactPersonName: finalAddress.contactPersonName ?? '${Get.find<ProfileController>().userInfoModel!.fName} '
                     '${Get.find<ProfileController>().userInfoModel!.lName}',
                 contactPersonNumber: finalAddress.contactPersonNumber ?? Get.find<ProfileController>().userInfoModel!.phone,
@@ -582,7 +547,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                 chargePayer: null, dmTips: (checkoutController.orderType == 'take_away' || checkoutController.tipController.text == 'not_now') ? '' : checkoutController.tipController.text.trim(),
                 cutlery: Get.find<CartController>().addCutlery ? 1 : 0,
                 unavailableItemNote: Get.find<CartController>().notAvailableIndex != -1 ? Get.find<CartController>().notAvailableList[Get.find<CartController>().notAvailableIndex] : '',
-                deliveryInstruction: checkoutController.selectedInstruction != -1 ? AppConstants.deliveryInstructionList[checkoutController.selectedInstruction].tr : '',
+                deliveryInstruction: checkoutController.selectedInstruction != -1 ? AppConstants.deliveryInstructionList[checkoutController.selectedInstruction] : '',
                 partialPayment: checkoutController.isPartialPay ? 1 : 0, guestId: isGuestLogIn ? int.parse(AuthHelper.getGuestId()) : 0,
                 isBuyNow: widget.fromCart ? 0 : 1, guestEmail: isGuestLogIn ? finalAddress.email : null,
                 extraPackagingAmount: Get.find<CartController>().needExtraPackage ? checkoutController.store!.extraPackagingAmount : 0,
@@ -603,7 +568,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                   finalAddress!.address!, finalAddress.longitude!, finalAddress.latitude!, checkoutController.noteController.text,
                   checkoutController.pickedPrescriptions, (checkoutController.orderType == 'take_away' || checkoutController.tipController.text == 'not_now')
                       ? '' : checkoutController.tipController.text.trim(), checkoutController.selectedInstruction != -1
-                      ? AppConstants.deliveryInstructionList[checkoutController.selectedInstruction].tr : '', 0, 0, widget.fromCart, _isCashOnDeliveryActive!
+                      ? AppConstants.deliveryInstructionList[checkoutController.selectedInstruction] : '', 0, 0, widget.fromCart, _isCashOnDeliveryActive!
               );
             }
 
@@ -891,16 +856,16 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     return subTotal;
   }
 
-  double _calculateOriginalDeliveryCharge({required Store? store, required AddressModel address, required AddressModel chosenAddress, required double? distance, required double? extraCharge}) {
+  double _calculateOriginalDeliveryCharge({required Store? store, required AddressModel address, required double? distance, required double? extraCharge}) {
     double deliveryCharge = -1;
 
     Pivot? moduleData;
     ZoneData? zoneData;
     if(store != null) {
-      for(ZoneData zData in chosenAddress.zoneData ?? []) {
+      for(ZoneData zData in address.zoneData!) {
 
         for(Modules m in zData.modules!) {
-          if(m.id == Get.find<SplashController>().module!.id && ((AppConstants.useUserZoneInDelivery && m.pivot!.zoneId == chosenAddress.zoneId) || (!AppConstants.useUserZoneInDelivery && m.pivot!.zoneId == store.zoneId))) {
+          if(m.id == Get.find<SplashController>().module!.id && m.pivot!.zoneId == store.zoneId) {
             moduleData = m.pivot;
             break;
           }
@@ -938,7 +903,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
       deliveryCharge = deliveryCharge + extraCharge;
     }
 
-    if(store != null && store.selfDeliverySystem == 0 && zoneData != null && zoneData.increaseDeliveryFeeStatus == 1) {
+    if(store != null && store.selfDeliverySystem == 0 && zoneData!.increaseDeliveryFeeStatus == 1) {
       badWeatherChargeForToolTip = (deliveryCharge * (zoneData.increaseDeliveryFee!/100));
       deliveryCharge = deliveryCharge + (deliveryCharge * (zoneData.increaseDeliveryFee!/100));
     }
@@ -946,8 +911,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     return deliveryCharge;
   }
 
-  double _calculateDeliveryCharge({required Store? store,required AddressModel chosenAddress, required AddressModel address, required double? distance, required double? extraCharge, required double orderAmount, required String orderType}) {
-    double deliveryCharge = _calculateOriginalDeliveryCharge(store: store, address: address, distance: distance, extraCharge: extraCharge,chosenAddress:chosenAddress);
+  double _calculateDeliveryCharge({required Store? store, required AddressModel address, required double? distance, required double? extraCharge, required double orderAmount, required String orderType}) {
+    double deliveryCharge = _calculateOriginalDeliveryCharge(store: store, address: address, distance: distance, extraCharge: extraCharge);
 
     if (orderType == 'take_away' || (store != null && store.freeDelivery!)
         || (Get.find<SplashController>().configModel!.freeDeliveryOver != null && orderAmount

@@ -10,7 +10,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Icon(from ? Icons.store : Icons.location_on, size: 28, color: from ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondary),
+      Icon(from ? Icons.store : Icons.location_on, size: 28, color: from ? Colors.blue : Theme.of(context).primaryColor),
       const SizedBox(width: Dimensions.paddingSizeSmall),
 
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

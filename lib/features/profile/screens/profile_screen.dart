@@ -84,7 +84,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                           ClipOval(child: CustomImage(
                             placeholder: Images.guestIcon,
-                            placeholderColor: Theme.of(context).primaryColor,
                             image: '${(profileController.userInfoModel != null && isLoggedIn) ? profileController.userInfoModel!.imageFullUrl : ''}',
                             height: 70, width: 70, fit: BoxFit.cover,
                           )),

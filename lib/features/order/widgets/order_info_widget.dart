@@ -97,23 +97,10 @@ class OrderInfoWidget extends StatelessWidget {
                 const Expanded(child: SizedBox()),
 
                 Text(
-                  DateConverter.dateTimeStringToDateString(order.createdAt!),
+                  DateConverter.dateTimeStringToDateTime(order.createdAt!),
                   style: robotoRegular,
                 ),
               ]),
-              if(order.deliveryDate != null)...[
-                Divider(height: Dimensions.paddingSizeLarge, color: Theme.of(context).disabledColor.withOpacity(0.30)),
-
-                Row(children: [
-                  Text('delivery_date'.tr, style: robotoRegular),
-                  const Expanded(child: SizedBox()),
-
-                  Text(
-                    DateConverter.dateTimeStringToDateString(order.deliveryDate!),
-                    style: robotoRegular,
-                  ),
-                ]),
-              ],
 
               order.scheduled == 1 ? Divider(height: Dimensions.paddingSizeLarge, color: Theme.of(context).disabledColor.withOpacity(0.30)) : const SizedBox(),
               order.scheduled == 1 ? Row(children: [

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get_connect/connect.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +17,7 @@ class CheckoutRepository implements CheckoutRepositoryInterface {
     int mostDmTipAmount = 0;
     Response response = await apiClient.getData(AppConstants.mostTipsUri);
     if (response.statusCode == 200) {
-      mostDmTipAmount = response.body['most_tips_amount'] ?? 0;
+      mostDmTipAmount = response.body['most_tips_amount'];
     }
     return mostDmTipAmount;
   }
@@ -55,7 +53,6 @@ class CheckoutRepository implements CheckoutRepositoryInterface {
 
   @override
   Future<Response> placeOrder(PlaceOrderBodyModel orderBody, List<MultipartBody>? orderAttachment) async {
-    log(orderBody.toJson().toString());
     return await apiClient.postMultipartData(AppConstants.placeOrderUri, orderBody.toJson(), orderAttachment ?? [], handleError: false);
   }
 

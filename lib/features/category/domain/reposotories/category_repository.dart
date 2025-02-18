@@ -18,13 +18,13 @@ class CategoryRepository implements CategoryRepositoryInterface {
 
   @override
   Future getList({int? offset, bool categoryList = false, bool subCategoryList = false, bool categoryItemList = false, bool categoryStoreList = false,
-    bool? allCategory, String? id, String? type, DataSourceEnum? source, String? brand_id_deve}) async {
+    bool? allCategory, String? id, String? type, DataSourceEnum? source}) async {
     if (categoryList) {
       return await _getCategoryList(allCategory!, source ?? DataSourceEnum.client);
     } else if (subCategoryList) {
       return await _getSubCategoryList(id);
     } else if (categoryItemList) {
-      return await _getCategoryItemList(id, offset!, type!, brand_id_deve!);
+      return await _getCategoryItemList(id, offset!, type!);
     } else if (categoryStoreList) {
       return await _getCategoryStoreList(id, offset!, type!);
     }
@@ -76,9 +76,9 @@ class CategoryRepository implements CategoryRepositoryInterface {
     return subCategoryList;
   }
 
-  Future<ItemModel?> _getCategoryItemList(String? categoryID, int offset, String type, String brand_id_deve) async {
+  Future<ItemModel?> _getCategoryItemList(String? categoryID, int offset, String type) async {
     ItemModel? categoryItem;
-    Response response = await apiClient.getData('${AppConstants.categoryItemUri}$categoryID?limit=20&offset=$offset&type=$type&brand_ids=[$brand_id_deve]');
+    Response response = await apiClient.getData('${AppConstants.categoryItemUri}$categoryID?limit=10&offset=$offset&type=$type');
     if (response.statusCode == 200) {
       categoryItem = ItemModel.fromJson(response.body);
     }
@@ -87,7 +87,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
 
   Future<StoreModel?> _getCategoryStoreList(String? categoryID, int offset, String type) async {
     StoreModel? categoryStore;
-    Response response = await apiClient.getData('${AppConstants.categoryStoreUri}$categoryID?limit=20&offset=$offset&type=$type');
+    Response response = await apiClient.getData('${AppConstants.categoryStoreUri}$categoryID?limit=10&offset=$offset&type=$type');
     if (response.statusCode == 200) {
       categoryStore = StoreModel.fromJson(response.body);
     }

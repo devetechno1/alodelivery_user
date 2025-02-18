@@ -9,7 +9,6 @@ import 'package:sixam_mart/features/address/domain/models/address_model.dart';
 import 'package:sixam_mart/helper/address_helper.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/common/widgets/custom_image.dart';
@@ -147,7 +146,7 @@ class ModuleView extends StatelessWidget {
         ) : const SizedBox() : AddressShimmer(isEnabled: AuthHelper.isLoggedIn() && locationController.addressList == null);
       }),
 
-      if(!AppConstants.removeStores) const PopularStoreView(isPopular: false, isFeatured: true),
+      const PopularStoreView(isPopular: false, isFeatured: true),
 
       const SizedBox(height: 120),
 

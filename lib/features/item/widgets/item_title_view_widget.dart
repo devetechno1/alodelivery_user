@@ -11,7 +11,6 @@ import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/price_converter.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -147,27 +146,24 @@ class ItemTitleViewWidget extends StatelessWidget {
 
             OrganicTag(item: item!, fromDetails: true),
           ]),
+          const SizedBox(height: Dimensions.paddingSizeSmall),
 
-          if(!AppConstants.removeStores)...[
-            const SizedBox(height: Dimensions.paddingSizeSmall),
-
-            InkWell(
-              onTap: () {
-                if(inStorePage) {
-                  Get.back();
-                }else {
-                  Get.offNamed(RouteHelper.getStoreRoute(id: item!.storeId, page: 'item'));
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                child: Text(
-                  item!.storeName!,
-                  style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
-                ),
+          InkWell(
+            onTap: () {
+              if(inStorePage) {
+                Get.back();
+              }else {
+                Get.offNamed(RouteHelper.getStoreRoute(id: item!.storeId, page: 'item'));
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+              child: Text(
+                item!.storeName!,
+                style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
               ),
             ),
-          ],
+          ),
           //const SizedBox(height: Dimensions.paddingSizeSmall),
 
           if(item!.ratingCount! > 0)
@@ -258,25 +254,24 @@ class ItemTitleViewWidget extends StatelessWidget {
               ],
             ) : const SizedBox(),
 
-            if(!AppConstants.removeStores)...[
-              InkWell(
-                onTap: () {
-                  if(inStorePage) {
-                    Get.back();
-                  }else {
-                    Get.offNamed(RouteHelper.getStoreRoute(id: item!.storeId, page: 'item'));
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                  child: Text(
-                    item!.storeName!,
-                    style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
-                  ),
+            InkWell(
+              onTap: () {
+                if(inStorePage) {
+                  Get.back();
+                }else {
+                  Get.offNamed(RouteHelper.getStoreRoute(id: item!.storeId, page: 'item'));
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                child: Text(
+                  item!.storeName!,
+                  style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
                 ),
               ),
-              const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-            ],
+            ),
+            const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+
             Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(

@@ -258,27 +258,6 @@ class LocationController extends GetxController implements GetxService {
       }
     });
   }
-  Future<AddressModel?> prepareZoneInCheckout(AddressModel address) async {
-    final response = await getZone(address.latitude, address.longitude, false);
-
-    if (response.isSuccess) {
-      Get.find<CartController>().getCartDataOnline();
-      address.zoneId = response.zoneIds[0];
-      address.zoneIds = [];
-      address.zoneIds!.addAll(response.zoneIds);
-      address.zoneData = [];
-      address.zoneData!.addAll(response.zoneData);
-      address.areaIds = [];
-      address.areaIds!.addAll(response.areaIds);
-      Get.find<AddressController>().updateAddressListVariable(address);
-
-      return address;
-    } else {
-      Get.back();
-      showCustomSnackBar(response.message);
-    }
-    return null;
-  }
 
   void autoNavigate(AddressModel? address, bool fromSignUp, String? route, bool canRoute, bool isDesktop) async {
     if (isDesktop && Get.find<SplashController>().module == null/* && Get.find<SplashController>().configModel!.module == null*/) {

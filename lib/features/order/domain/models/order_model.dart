@@ -49,7 +49,6 @@ class OrderModel {
   String? orderNote;
   String? orderType;
   String? createdAt;
-  String? deliveryDate;
   String? updatedAt;
   double? deliveryCharge;
   String? scheduleAt;
@@ -112,7 +111,6 @@ class OrderModel {
         this.orderNote,
         this.orderType,
         this.createdAt,
-        this.deliveryDate,
         this.updatedAt,
         this.deliveryCharge,
         this.scheduleAt,
@@ -176,7 +174,6 @@ class OrderModel {
     orderNote = json['order_note'];
     orderType = json['order_type'];
     createdAt = json['created_at'];
-    deliveryDate = json['estimated_delivery_date'];
     updatedAt = json['updated_at'];
     deliveryCharge = json['delivery_charge'].toDouble();
     scheduleAt = json['schedule_at'];
@@ -260,7 +257,6 @@ class OrderModel {
     data['order_note'] = orderNote;
     data['order_type'] = orderType;
     data['created_at'] = createdAt;
-    data['estimated_delivery_date'] = deliveryDate;
     data['updated_at'] = updatedAt;
     data['delivery_charge'] = deliveryCharge;
     data['schedule_at'] = scheduleAt;

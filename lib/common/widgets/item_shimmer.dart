@@ -15,7 +15,7 @@ class ItemShimmer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
         color: Theme.of(context).cardColor,
       ),
       child: Column(
@@ -64,15 +64,18 @@ class ItemShimmer extends StatelessWidget {
 
                   ]),
                 ),
-                if(!desktop) const SizedBox(width: Dimensions.paddingSizeSmall),
 
-                Padding(
-                  padding: EdgeInsets.all( desktop ? Dimensions.paddingSizeSmall : 0),
-                  child: Icon(
-                    Icons.favorite_border,  size: desktop ? 30 : 25,
-                    color: Theme.of(context).shadowColor,
+                Column(mainAxisAlignment: isStore ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween, children: [
+                  const SizedBox(),
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: desktop ? Dimensions.paddingSizeSmall : 0),
+                    child: Icon(
+                      Icons.favorite_border,  size: desktop ? 30 : 25,
+                      color: Theme.of(context).shadowColor,
+                    ),
                   ),
-                ),
+                ]),
 
               ]),
             ),

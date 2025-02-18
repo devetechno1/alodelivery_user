@@ -8,6 +8,7 @@ import 'package:sixam_mart/features/flash_sale/domain/models/flash_sale_model.da
 import 'package:sixam_mart/features/flash_sale/domain/models/product_flash_sale.dart';
 import 'package:sixam_mart/features/flash_sale/domain/repositories/flash_sale_repository_interface.dart';
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
+import 'package:sixam_mart/local/cache_response.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 
 class FlashSaleRepository implements FlashSaleRepositoryInterface {
@@ -40,7 +41,7 @@ class FlashSaleRepository implements FlashSaleRepositoryInterface {
   @override
   Future<ProductFlashSale?> getFlashSaleWithId(int id, int offset) async {
     ProductFlashSale? productFlashSale;
-    Response response = await apiClient.getData('${AppConstants.flashSaleProductsUri}?flash_sale_id=$id&offset=$offset&limit=20');
+    Response response = await apiClient.getData('${AppConstants.flashSaleProductsUri}?flash_sale_id=$id&offset=$offset&limit=10');
     if(response.statusCode == 200) {
       productFlashSale = ProductFlashSale.fromJson(response.body);
     }

@@ -22,7 +22,7 @@ class ChatRepository implements ChatRepositoryInterface {
 
   Future<ConversationsModel?> _getConversationList(int offset, String type) async {
     ConversationsModel? conversationModel;
-    Response response = await apiClient.getData('${AppConstants.conversationListUri}?limit=20&offset=$offset&type=$type');
+    Response response = await apiClient.getData('${AppConstants.conversationListUri}?limit=10&offset=$offset&type=$type');
     if(response.statusCode == 200){
       conversationModel = ConversationsModel.fromJson(response.body);
     }
@@ -41,7 +41,7 @@ class ChatRepository implements ChatRepositoryInterface {
   @override
   Future<Response> getMessages(int offset, int? userID, String userType, int? conversationID) async {
     return await apiClient.getData('${AppConstants.messageListUri}?${conversationID != null ? 'conversation_id' : userType == UserType.admin.name ? 'admin_id'
-        : userType == UserType.vendor.name ? 'vendor_id' : 'delivery_man_id'}=${conversationID ?? userID}&offset=$offset&limit=20');
+        : userType == UserType.vendor.name ? 'vendor_id' : 'delivery_man_id'}=${conversationID ?? userID}&offset=$offset&limit=10');
   }
 
   @override

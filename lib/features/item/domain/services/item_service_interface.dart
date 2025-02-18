@@ -5,7 +5,7 @@ import 'package:sixam_mart/features/item/domain/models/item_model.dart';
 import 'package:sixam_mart/features/cart/domain/models/cart_model.dart';
 
 abstract class ItemServiceInterface {
-  Future<List<Item>?> getPopularItemList(String type, DataSourceEnum? source, String? categoryId);
+  Future<List<Item>?> getPopularItemList(String type, DataSourceEnum? source);
   Future<ItemModel?> getReviewedItemList(String type, DataSourceEnum? source);
   Future<ItemModel?> getFeaturedCategoriesItemList(DataSourceEnum? source);
   Future<List<Item>?> getRecommendedItemList(String type, DataSourceEnum? source);

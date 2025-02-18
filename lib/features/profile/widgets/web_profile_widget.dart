@@ -50,7 +50,6 @@ class WebProfileWidget extends StatelessWidget {
                       left: (Dimensions.webMaxWidth/2) - 60,
                       child: ClipOval(child: CustomImage(
                         placeholder: Images.guestIcon,
-                        placeholderColor: Theme.of(context).primaryColor,
                         image: '${(profileController.userInfoModel != null && isLoggedIn) ? profileController.userInfoModel!.imageFullUrl : ''}',
                         height: 120, width: 120, fit: BoxFit.cover,
                     ))),
@@ -101,14 +100,13 @@ class WebProfileWidget extends StatelessWidget {
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                       ClipOval(child: CustomImage(
                         placeholder: Images.guestIcon,
-                        placeholderColor: Theme.of(context).primaryColor,
                         image: '${(profileController.userInfoModel != null && isLoggedIn) ? profileController.userInfoModel!.imageFullUrl : ''}',
                         height: 30, width: 30, fit: BoxFit.cover,
                       )),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
 
                       Text(
-                        DateConverter.containTAndZToUTCFormat(profileController.userInfoModel!.createdAt!),
+                        DateConverter.containTAndZToUTCFormat(profileController.userInfoModel!.createdAt!), textDirection: TextDirection.ltr,
                         style: robotoMedium.copyWith(fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeDefault : Dimensions.fontSizeExtraLarge),
                       ),
                       const SizedBox(height: Dimensions.paddingSizeSmall),

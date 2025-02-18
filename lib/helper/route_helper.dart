@@ -150,9 +150,8 @@ class RouteHelper {
   static const String subscriptionPayment = '/subscription-payment';
   static const String newUserSetupScreen = '/new-user-setup-screen';
 
-  static String? _loginOrHome(String page) => AppConstants.mustLogin && !AuthHelper.isLoggedIn()? getSignInRoute(page) : null ;
 
-  static String getInitialRoute({bool fromSplash = false}) => _loginOrHome(fromSplash ? RouteHelper.splash : '') ?? '$initial?from-splash=$fromSplash';
+  static String getInitialRoute({bool fromSplash = false}) => '$initial?from-splash=$fromSplash';
   static String getSplashRoute(NotificationBodyModel? body) {
     String data = 'null';
     if(body != null) {
@@ -189,7 +188,7 @@ class RouteHelper {
   static String getAccessLocationRoute(String page) => '$accessLocation?page=$page';
   static String getPickMapRoute(String? page, bool canRoute) => '$pickMap?page=$page&route=${canRoute.toString()}';
   static String getInterestRoute() => interest;
-  static String getMainRoute(String page) =>  _loginOrHome(page) ?? '$main?page=$page';
+  static String getMainRoute(String page) => '$main?page=$page';
   /*static String getForgotPassRoute(bool fromSocialLogin, SocialLogInBody? socialLogInBody) {
     String? data;
     if(fromSocialLogin) {
@@ -215,7 +214,7 @@ class RouteHelper {
   static String getMapRoute(AddressModel addressModel, String page, bool isFood, {String? storeName}) {
     List<int> encoded = utf8.encode(jsonEncode(addressModel.toJson()));
     String data = base64Encode(encoded);
-    return '$map?address=$data&page=$page&module=$isFood&store-name=${storeName?? ''}';
+    return '$map?address=$data&page=$page&module=$isFood&store-name=$storeName';
   }
   static String getAddressRoute() => address;
   static String getOrderSuccessRoute(String orderID, String? contactNumber, {bool? createAccount, String guestId = ''}) {
@@ -255,9 +254,9 @@ class RouteHelper {
     return '$storeReview?storeID=$storeID&storeName=$storeName&store=$data';
   }
   static String getAllStoreRoute(String page, {bool isNearbyStore = false}) => '$allStores?page=$page${isNearbyStore ? '&nearby=${isNearbyStore.toString()}' : ''}';
-  static String getItemImagesRoute(Item item,[int? initIndex]) {
+  static String getItemImagesRoute(Item item) {
     String data = base64Url.encode(utf8.encode(jsonEncode(item.toJson())));
-    return '$itemImages?item=$data&initIndex=$initIndex';
+    return '$itemImages?item=$data';
   }
   static String getParcelCategoryRoute() => parcelCategory;
   static String getParcelLocationRoute(ParcelCategoryModel category) {
@@ -330,8 +329,8 @@ class RouteHelper {
     GetPage(name: language, page: () => ChooseLanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
     GetPage(name: onBoarding, page: () => const OnBoardingScreen()),
     GetPage(name: signIn, page: () => SignInScreen(
-      exitFromApp: AppConstants.mustLogin || (Get.parameters['page'] == signUp || Get.parameters['page'] == splash || Get.parameters['page'] == onBoarding),
-      backFromThis: !AppConstants.mustLogin && (Get.parameters['page'] != splash && Get.parameters['page'] != onBoarding),
+      exitFromApp: Get.parameters['page'] == signUp || Get.parameters['page'] == splash || Get.parameters['page'] == onBoarding,
+      backFromThis: Get.parameters['page'] != splash && Get.parameters['page'] != onBoarding,
       fromNotification: Get.parameters['page'] == notification, fromResetPassword: Get.parameters['page'] == resetPassword,
     )),
     GetPage(name: signUp, page: () => const SignUpScreen()),
@@ -515,7 +514,6 @@ class RouteHelper {
     ))),
     GetPage(name: itemImages, page: () => getRoute(ImageViewerScreen(
       item: Item.fromJson(jsonDecode(utf8.decode(base64Url.decode(Get.parameters['item']!.replaceAll(' ', '+'))))),
-      initIndex: int.tryParse(Get.parameters['initIndex'] ?? "0") ?? 0,
     ))),
     GetPage(name: parcelCategory, page: () => getRoute(const ParcelCategoryScreen())),
     GetPage(name: parcelLocation, page: () => getRoute(ParcelLocationScreen(

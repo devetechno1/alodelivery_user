@@ -42,7 +42,7 @@ class WebNewBannerViewWidget extends StatelessWidget {
                     autoPlay: true,
                     enlargeCenterPage: true,
                     disableCenter: true,
-                    viewportFraction: 0.7,
+                    viewportFraction: 1,
                     autoPlayInterval: const Duration(seconds: 7),
                     onPageChanged: (index, reason) {
                       bannerController.setCurrentIndex(index, true);
@@ -51,62 +51,57 @@ class WebNewBannerViewWidget extends StatelessWidget {
                   itemCount: bannerList.isEmpty ? 1 : bannerList.length,
                   itemBuilder: (context, index, _) {
 
-                    return Align(
-                      child: AspectRatio(
-                        aspectRatio: 2.5,
-                        child: GestureDetector(
-                          onTap: () async {
-                            if(bannerDataList![index] is Item) {
-                              Item? item = bannerDataList[index];
-                              Get.find<ItemController>().navigateToItemPage(item, context);
-                            }else if(bannerDataList[index] is Store) {
-                              Store? store = bannerDataList[index];
-                              if(isFeatured && Get.find<SplashController>().moduleList != null) {
-                                for(ModuleModel module in Get.find<SplashController>().moduleList!) {
-                                  if(module.id == store!.moduleId) {
-                                    Get.find<SplashController>().setModule(module);
-                                    break;
-                                  }
-                                }
-                              }
-                              Get.toNamed(
-                                RouteHelper.getStoreRoute(id: store!.id, page: isFeatured ? 'module' : 'banner'),
-                                arguments: StoreScreen(store: store, fromModule: isFeatured),
-                              );
-                            }else if(bannerDataList[index] is BasicCampaignModel) {
-                              BasicCampaignModel campaign = bannerDataList[index];
-                              Get.toNamed(RouteHelper.getBasicCampaignRoute(campaign));
-                            }else {
-                              String url = bannerDataList[index];
-                              if (await canLaunchUrlString(url)) {
-                                await launchUrlString(url, mode: LaunchMode.externalApplication);
-                              }else {
-                                showCustomSnackBar('unable_to_found_url'.tr);
+                    return InkWell(
+                      onTap: () async {
+                        if(bannerDataList![index] is Item) {
+                          Item? item = bannerDataList[index];
+                          Get.find<ItemController>().navigateToItemPage(item, context);
+                        }else if(bannerDataList[index] is Store) {
+                          Store? store = bannerDataList[index];
+                          if(isFeatured && Get.find<SplashController>().moduleList != null) {
+                            for(ModuleModel module in Get.find<SplashController>().moduleList!) {
+                              if(module.id == store!.moduleId) {
+                                Get.find<SplashController>().setModule(module);
+                                break;
                               }
                             }
-                          },
-                          child: TextHover(
-                            builder: (hovered) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).cardColor,
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                  boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                  child: GetBuilder<SplashController>(builder: (splashController) {
-                                    return CustomImage(
-                                      isHovered: hovered,
-                                      image: '${bannerList[index]}',
-                                      fit: BoxFit.cover,
-                                    );
-                                  }),
-                                ),
-                              );
-                            }
-                          ),
-                        ),
+                          }
+                          Get.toNamed(
+                            RouteHelper.getStoreRoute(id: store!.id, page: isFeatured ? 'module' : 'banner'),
+                            arguments: StoreScreen(store: store, fromModule: isFeatured),
+                          );
+                        }else if(bannerDataList[index] is BasicCampaignModel) {
+                          BasicCampaignModel campaign = bannerDataList[index];
+                          Get.toNamed(RouteHelper.getBasicCampaignRoute(campaign));
+                        }else {
+                          String url = bannerDataList[index];
+                          if (await canLaunchUrlString(url)) {
+                            await launchUrlString(url, mode: LaunchMode.externalApplication);
+                          }else {
+                            showCustomSnackBar('unable_to_found_url'.tr);
+                          }
+                        }
+                      },
+                      child: TextHover(
+                        builder: (hovered) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
+                              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                              boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                              child: GetBuilder<SplashController>(builder: (splashController) {
+                                return CustomImage(
+                                  isHovered: hovered,
+                                  image: '${bannerList[index]}',
+                                  fit: BoxFit.cover,
+                                );
+                              }),
+                            ),
+                          );
+                        }
                       ),
                     );
                   },

@@ -15,7 +15,6 @@ import 'package:sixam_mart/features/profile/widgets/profile_bg_widget.dart';
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
@@ -421,7 +420,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     String name = _nameController.text.trim();
     String email = _emailController.text.trim();
     String phoneNumber = _phoneController.text.trim();
-    String numberWithCountryCode = _countryDialCode! + phoneNumber.removeZerosInFirst;
+    String numberWithCountryCode = _countryDialCode! + phoneNumber;
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 

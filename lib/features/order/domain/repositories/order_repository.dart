@@ -103,7 +103,7 @@ class OrderRepository implements OrderRepositoryInterface {
 
   Future<PaginatedOrderModel?> _getHistoryOrderList(int offset) async {
     PaginatedOrderModel? historyOrderModel;
-    Response response = await apiClient.getData('${AppConstants.historyOrderListUri}?offset=$offset&limit=20');
+    Response response = await apiClient.getData('${AppConstants.historyOrderListUri}?offset=$offset&limit=10');
     if (response.statusCode == 200) {
       historyOrderModel = PaginatedOrderModel.fromJson(response.body);
     }

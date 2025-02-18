@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:sixam_mart/features/auth/widgets/sign_in/sign_in_view.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/common/widgets/menu_drawer.dart';
@@ -28,9 +27,9 @@ class SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: !AppConstants.mustLogin && Navigator.canPop(context),
+      canPop: Navigator.canPop(context),
       onPopInvokedWithResult: (didPop, result) async {
-        if((widget.fromNotification || widget.fromResetPassword) && !AppConstants.mustLogin) {
+        if(widget.fromNotification || widget.fromResetPassword) {
           Navigator.pushNamed(context, RouteHelper.getInitialRoute());
         } else if(widget.exitFromApp) {
           if (_canExit) {
@@ -60,7 +59,7 @@ class SignInScreenState extends State<SignInScreen> {
       },
       child: Scaffold(
         backgroundColor: ResponsiveHelper.isDesktop(context) ? Colors.transparent : Theme.of(context).cardColor,
-        appBar: (ResponsiveHelper.isDesktop(context) ? null : !widget.exitFromApp ? AppBar(leading: widget.backFromThis?IconButton(
+        appBar: (ResponsiveHelper.isDesktop(context) ? null : !widget.exitFromApp ? AppBar(leading: IconButton(
             onPressed: () {
               if(widget.fromNotification || widget.fromResetPassword) {
                 Navigator.pushNamed(context, RouteHelper.getInitialRoute());
@@ -69,7 +68,7 @@ class SignInScreenState extends State<SignInScreen> {
               }
             },
             icon: Icon(Icons.arrow_back_ios_rounded, color: Theme.of(context).textTheme.bodyLarge!.color),
-          ):const SizedBox(),
+          ),
           elevation: 0, backgroundColor: Theme.of(context).cardColor, actions: const [SizedBox()],
         ) : null),
         endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
@@ -78,7 +77,7 @@ class SignInScreenState extends State<SignInScreen> {
           child: Align(
             alignment: Alignment.center,
             child: Container(
-              width: context.width > 700 ? 700 : context.width,
+              width: context.width > 700 ? 500 : context.width,
               padding: context.width > 700 ? const EdgeInsets.all(50) : const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
               margin: context.width > 700 ? const EdgeInsets.all(50) : EdgeInsets.zero,
               decoration: context.width > 700 ? BoxDecoration(
@@ -88,7 +87,7 @@ class SignInScreenState extends State<SignInScreen> {
               child: SingleChildScrollView(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
 
-                  ResponsiveHelper.isDesktop(context) && !AppConstants.mustLogin? Align(
+                  ResponsiveHelper.isDesktop(context) ? Align(
                     alignment: Alignment.topRight,
                     child: IconButton(
                       onPressed: () => Get.back(),

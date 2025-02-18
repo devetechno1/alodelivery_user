@@ -4,15 +4,12 @@ import 'package:sixam_mart/features/item/domain/models/item_model.dart';
 import 'package:sixam_mart/features/store/domain/models/store_model.dart';
 import 'package:sixam_mart/features/home/widgets/web/widgets/store_card_widget.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/common/widgets/no_data_screen.dart';
 import 'package:sixam_mart/common/widgets/item_shimmer.dart';
 import 'package:sixam_mart/common/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'card_design/item_card.dart';
 
 class ItemsView extends StatefulWidget {
   final List<Item?>? items;
@@ -58,14 +55,14 @@ class _ItemsViewState extends State<ItemsView> {
         key: UniqueKey(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeExtremeLarge : widget.stores != null ? Dimensions.paddingSizeLarge : Dimensions.paddingSizeLarge,
-          mainAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeExtremeLarge : widget.stores != null && widget.isStore ? Dimensions.paddingSizeLarge : AppConstants.makeAllProductsGridCards ? Dimensions.paddingSizeLarge : Dimensions.paddingSizeSmall,
+          mainAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeExtremeLarge : widget.stores != null && widget.isStore ? Dimensions.paddingSizeLarge : Dimensions.paddingSizeSmall,
           // childAspectRatio: ResponsiveHelper.isDesktop(context) && widget.isStore ? (1/0.6)
           //     : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 2 : 3.8
           //     : 3.3,
           mainAxisExtent: ResponsiveHelper.isDesktop(context) && widget.isStore ? 220
-              : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 200 : AppConstants.makeAllProductsGridCards ? 250 : 122
-              : 300,
-          crossAxisCount: ResponsiveHelper.isMobile(context) ? (AppConstants.makeAllProductsGridCards && !widget.isStore? 2 : 1 ): ResponsiveHelper.isDesktop(context) && widget.stores != null  ? 3 : 3,
+              : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 200 : 122
+              : 122,
+          crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : ResponsiveHelper.isDesktop(context) && widget.stores != null  ? 3 : 3,
         ),
         physics: widget.isScrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
         shrinkWrap: widget.isScrollable ? false : true,
@@ -75,16 +72,7 @@ class _ItemsViewState extends State<ItemsView> {
           return widget.stores != null && widget.isStore ?  widget.isFoodOrGrocery! && widget.isStore
               ? StoreCardWidget(store: widget.stores![index])
               : StoreCardWithDistance(store: widget.stores![index]!, fromAllStore: true)
-              : AppConstants.makeAllProductsGridCards && !widget.isStore? Center(
-                child: ItemCard(
-                  isPopularItem:false,
-                  isPopularItemCart: true,
-                  index: index,
-                  item: widget.items![index]!,
-                  isShop: true,
-                  isFood: false,
-                ),
-              ):ItemWidget(
+              : ItemWidget(
             isStore: widget.isStore, item: widget.isStore ? null : widget.items![index], isFeatured: widget.isFeatured,
             store: widget.isStore ? widget.stores![index] : null, index: index, length: length, isCampaign: widget.isCampaign,
             inStore: widget.inStorePage,
@@ -97,14 +85,14 @@ class _ItemsViewState extends State<ItemsView> {
         key: UniqueKey(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeExtremeLarge : widget.stores != null ? Dimensions.paddingSizeLarge : Dimensions.paddingSizeLarge,
-          mainAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeExtremeLarge : widget.stores != null && widget.isStore ? Dimensions.paddingSizeLarge : AppConstants.makeAllProductsGridCards ? Dimensions.paddingSizeLarge : Dimensions.paddingSizeSmall,
+          mainAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeLarge : widget.stores != null ? Dimensions.paddingSizeLarge : Dimensions.paddingSizeSmall,
           // childAspectRatio: ResponsiveHelper.isDesktop(context) && widget.isStore ? (1/0.6)
           //     : ResponsiveHelper.isMobile(context) ? widget.isStore ? 2 : 3.8
           //     : 3,
           mainAxisExtent: ResponsiveHelper.isDesktop(context) && widget.isStore ? 220
-              : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 200 : AppConstants.makeAllProductsGridCards ? 250 : 122
-              : 300,
-          crossAxisCount: ResponsiveHelper.isMobile(context) ? AppConstants.makeAllProductsGridCards && !widget.isStore? 2 : 1 : ResponsiveHelper.isDesktop(context) && widget.stores != null  ? 3 : 3,
+              : ResponsiveHelper.isMobile(context) ? widget.isStore ? 200 : 110
+              : 110,
+          crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : ResponsiveHelper.isDesktop(context) ? 3 : 3,
         ),
         physics: widget.isScrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
         shrinkWrap: widget.isScrollable ? false : true,
@@ -114,7 +102,7 @@ class _ItemsViewState extends State<ItemsView> {
           return widget.isStore ? widget.isFoodOrGrocery!
               ? const StoreCardShimmer()
               : const NewOnShimmerView()
-              : AppConstants.makeAllProductsGridCards? const Center(child: ItemGridShimmer()) : ItemShimmer(isEnabled: isNull, isStore: widget.isStore, hasDivider: index != widget.shimmerLength-1);
+              : ItemShimmer(isEnabled: isNull, isStore: widget.isStore, hasDivider: index != widget.shimmerLength-1);
         },
       ),
 

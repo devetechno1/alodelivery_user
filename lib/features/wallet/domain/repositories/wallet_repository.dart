@@ -64,7 +64,7 @@ class WalletRepository implements WalletRepositoryInterface{
 
   Future<TransactionModel?> _getWalletTransactionList(String offset, String sortingType) async {
     TransactionModel? transactionModel;
-    Response response = await apiClient.getData('${AppConstants.walletTransactionUri}?offset=$offset&limit=20&type=$sortingType');
+    Response response = await apiClient.getData('${AppConstants.walletTransactionUri}?offset=$offset&limit=10&type=$sortingType');
     if (response.statusCode == 200) {
       transactionModel = TransactionModel.fromJson(response.body);
     }

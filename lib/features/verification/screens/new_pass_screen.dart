@@ -3,7 +3,6 @@ import 'package:sixam_mart/features/profile/controllers/profile_controller.dart'
 import 'package:sixam_mart/features/profile/domain/models/userinfo_model.dart';
 import 'package:sixam_mart/features/verification/controllers/verification_controller.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -158,7 +157,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
   void _resetUserPassword(String password, String confirmPassword) {
     Get.find<VerificationController>().resetPassword(widget.resetToken, '${GetPlatform.isWeb ? '' : '+'}${widget.number!.trim()}', password, confirmPassword).then((value) {
       if (value.isSuccess) {
-        if(!ResponsiveHelper.isDesktop(Get.context) || AppConstants.mustLogin) {
+        if(!ResponsiveHelper.isDesktop(Get.context)) {
           Get.offAllNamed(RouteHelper.getSignInRoute(RouteHelper.resetPassword));
         }else{
           Get.offAllNamed(RouteHelper.getInitialRoute(fromSplash: false))?.then((value) {

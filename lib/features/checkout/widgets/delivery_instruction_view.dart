@@ -55,20 +55,20 @@ class _DeliveryInstructionViewState extends State<DeliveryInstructionView> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.2) : Colors.grey[200],
+                          color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.5) : Colors.grey[200],
                           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                           // boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
                         ),
                         padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
                         margin: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
                         child: Row(children: [
-                          Icon(Icons.ac_unit, color: isSelected ? Theme.of(context).primaryColor : null, size: 18),
+                          Icon(Icons.ac_unit, color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).disabledColor, size: 18),
                           const SizedBox(width: Dimensions.paddingSizeSmall),
 
                           Expanded(
                             child: Text(
                               AppConstants.deliveryInstructionList[index].tr,
-                              style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: isSelected ? Theme.of(context).primaryColor : null),
+                              style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).disabledColor),
                             ),
                           ),
                         ]),

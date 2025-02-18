@@ -32,29 +32,27 @@ class BannerView extends StatelessWidget {
 
       return (bannerList != null && bannerList.isEmpty) ? const SizedBox() : Container(
         width: MediaQuery.of(context).size.width,
-        // height: GetPlatform.isDesktop ? 500 : MediaQuery.of(context).size.width * 0.45,
+        height: GetPlatform.isDesktop ? 500 : MediaQuery.of(context).size.width * 0.45,
         padding: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
         child: bannerList != null ? Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CarouselSlider.builder(
-              options: CarouselOptions(
-                autoPlay: true,
-                enlargeCenterPage: true,
-                disableCenter: true,
-                viewportFraction: 0.8,
-                aspectRatio: 3,
-                autoPlayInterval: const Duration(seconds: 7),
-                onPageChanged: (index, reason) {
-                  bannerController.setCurrentIndex(index, true);
-                },
-              ),
-              itemCount: bannerList.isEmpty ? 1 : bannerList.length,
-              itemBuilder: (context, index, _) {
-            
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeExtraSmall),
-                  child: InkWell(
+            Expanded(
+              child: CarouselSlider.builder(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  disableCenter: true,
+                  viewportFraction: 0.8,
+                  autoPlayInterval: const Duration(seconds: 7),
+                  onPageChanged: (index, reason) {
+                    bannerController.setCurrentIndex(index, true);
+                  },
+                ),
+                itemCount: bannerList.isEmpty ? 1 : bannerList.length,
+                itemBuilder: (context, index, _) {
+
+                  return InkWell(
                     onTap: () async {
                       if(bannerDataList![index] is Item) {
                         Item? item = bannerDataList[index];
@@ -69,7 +67,7 @@ class BannerView extends StatelessWidget {
                             }
                           }
                           ZoneData zoneData = AddressHelper.getUserAddressFromSharedPref()!.zoneData!.firstWhere((data) => data.id == store!.zoneId);
-                  
+
                           Modules module = zoneData.modules!.firstWhere((module) => module.id == store!.moduleId);
                           Get.find<SplashController>().setModule(ModuleModel(id: module.id, moduleName: module.moduleName, moduleType: module.moduleType, themeId: module.themeId, storesCount: module.storesCount));
                         }
@@ -81,23 +79,21 @@ class BannerView extends StatelessWidget {
                         BasicCampaignModel campaign = bannerDataList[index];
                         Get.toNamed(RouteHelper.getBasicCampaignRoute(campaign));
                       }else {
-                        String? url = bannerDataList[index];
-                        if(url != null){
-                          if (await canLaunchUrlString(url)) {
-                            await launchUrlString(url, mode: LaunchMode.externalApplication);
-                          }else {
-                            showCustomSnackBar('unable_to_found_url'.tr);
-                          }
+                        String url = bannerDataList[index];
+                        if (await canLaunchUrlString(url)) {
+                          await launchUrlString(url, mode: LaunchMode.externalApplication);
+                        }else {
+                          showCustomSnackBar('unable_to_found_url'.tr);
                         }
                       }
                     },
-                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                         boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 0)],
                       ),
+                      margin: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeExtraSmall),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                         child: GetBuilder<SplashController>(builder: (splashController) {
@@ -108,9 +104,9 @@ class BannerView extends StatelessWidget {
                         }),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
 
             const SizedBox(height: Dimensions.paddingSizeExtraSmall),

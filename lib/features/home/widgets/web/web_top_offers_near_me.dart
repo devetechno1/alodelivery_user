@@ -77,7 +77,7 @@ class _WebTopOffersNearMeState extends State<WebTopOffersNearMe> {
         isFirstTime = false;
       }
 
-      return ((storeList != null && storeList.isEmpty) || (storeList == null && !storeController.isLoading)) ? const SizedBox() : Stack(children: [
+      return (storeList != null && storeList.isEmpty) ? const SizedBox() : Stack(children: [
         Container(
           color: Theme.of(context).primaryColor.withOpacity(0.1),
           padding: widget.isShop ? const EdgeInsets.only(bottom: Dimensions.paddingSizeLarge) : EdgeInsets.zero,

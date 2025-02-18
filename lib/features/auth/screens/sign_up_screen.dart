@@ -1,6 +1,5 @@
 import 'package:sixam_mart/features/auth/widgets/sign_up_widget.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -41,7 +40,7 @@ class SignUpScreenState extends State<SignUpScreen> {
             child: SingleChildScrollView(
               child: Column(children: [
 
-                ResponsiveHelper.isDesktop(context) && !AppConstants.mustLogin ? Align(
+                ResponsiveHelper.isDesktop(context) ? Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
                     onPressed: () => Get.back(),

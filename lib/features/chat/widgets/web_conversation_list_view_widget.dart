@@ -151,8 +151,8 @@ class _WebConversationListViewWidgetState extends State<WebConversationListViewW
                           ]),
                         ),
 
-                        PositionedDirectional(
-                          end: 5 , top: 15,
+                        Positioned(
+                          right: Get.find<LocalizationController>().isLtr ? 5 : null, top: 15, left: Get.find<LocalizationController>().isLtr ? null : 5,
                           child: Text(
                             DateConverter.convertOnlyTodayTime(widget.conversation!.conversations![index]!.lastMessageTime!),
                             style: robotoRegular.copyWith(color: Theme.of(context).hintColor, fontSize: Dimensions.fontSizeExtraSmall),

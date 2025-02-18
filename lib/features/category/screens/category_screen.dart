@@ -68,28 +68,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       alignment: Alignment.center,
                       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
 
-                        Expanded(
-                          flex: 5,
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                              child: CustomImage(
-                                 fit: BoxFit.cover,
-                                image: '${catController.categoryList![index].imageFullUrl}',
-                              ),
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                          child: CustomImage(
+                            height: 50, width: 50, fit: BoxFit.cover,
+                            image: '${catController.categoryList![index].imageFullUrl}',
                           ),
                         ),
                         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
-                        Flexible(
-                          flex: 2,
-                          child: Text(
-                            catController.categoryList![index].name!, textAlign: TextAlign.center,
-                            style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
-                            maxLines: 2, overflow: TextOverflow.ellipsis,
-                          ),
+                        Text(
+                          catController.categoryList![index].name!, textAlign: TextAlign.center,
+                          style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
+                          maxLines: 2, overflow: TextOverflow.ellipsis,
                         ),
 
                       ]),

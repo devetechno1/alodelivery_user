@@ -15,7 +15,6 @@ import 'package:sixam_mart/helper/date_converter.dart';
 import 'package:sixam_mart/helper/price_converter.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -31,14 +30,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
-    @override
-  void initState() {
-    if(AuthHelper.isLoggedIn()){
-      Get.find<ProfileController>().getUserInfo();
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,8 +139,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     margin: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                     child: Column(children: [
                       PortionWidget(icon: Images.profileIcon, title: 'profile'.tr, route: RouteHelper.getProfileRoute()),
-                      PortionWidget(icon: Images.addressIcon, title: 'my_address'.tr, route: RouteHelper.getAddressRoute(), hideDivider: AppConstants.languages.length <= 1),
-                      if(AppConstants.languages.length > 1) PortionWidget(icon: Images.languageIcon, title: 'language'.tr, hideDivider: true, onTap: ()=> _manageLanguageFunctionality(), route: ''),
+                      PortionWidget(icon: Images.addressIcon, title: 'my_address'.tr, route: RouteHelper.getAddressRoute()),
+                      PortionWidget(icon: Images.languageIcon, title: 'language'.tr, hideDivider: true, onTap: ()=> _manageLanguageFunctionality(), route: ''),
                     ]),
                   )
 
@@ -258,31 +249,17 @@ class _MenuScreenState extends State<MenuScreen> {
                       (Get.find<SplashController>().configModel!.refundPolicyStatus == 1 ) ? PortionWidget(
                           icon: Images.refundIcon, title: 'refund_policy'.tr, route: RouteHelper.getHtmlRoute('refund-policy'),
                         hideDivider: (Get.find<SplashController>().configModel!.cancellationPolicyStatus == 1 ) ||
-                            (Get.find<SplashController>().configModel!.shippingPolicyStatus == 1 ) || isLoggedIn? false : true,
+                            (Get.find<SplashController>().configModel!.shippingPolicyStatus == 1 ) ? false : true,
                       ) : const SizedBox(),
 
                       (Get.find<SplashController>().configModel!.cancellationPolicyStatus == 1 ) ? PortionWidget(
                           icon: Images.cancelationIcon, title: 'cancellation_policy'.tr, route: RouteHelper.getHtmlRoute('cancellation-policy'),
-                        hideDivider: (Get.find<SplashController>().configModel!.shippingPolicyStatus == 1 ) || isLoggedIn? false : true,
+                        hideDivider: (Get.find<SplashController>().configModel!.shippingPolicyStatus == 1 ) ? false : true,
                       ) : const SizedBox(),
 
                       (Get.find<SplashController>().configModel!.shippingPolicyStatus == 1 ) ? PortionWidget(
-                          icon: Images.shippingIcon, title: 'shipping_policy'.tr, hideDivider: !isLoggedIn, route: RouteHelper.getHtmlRoute('shipping-policy'),
+                          icon: Images.shippingIcon, title: 'shipping_policy'.tr, hideDivider: true, route: RouteHelper.getHtmlRoute('shipping-policy'),
                       ) : const SizedBox(),
-                      if(isLoggedIn)
-                        PortionWidget(
-                          icon: Images.profileDelete, 
-                          title: 'delete_account'.tr, 
-                          hideDivider: true, 
-                          route: '',
-                          onTap: () {
-                            Get.dialog(ConfirmationDialog(icon: Images.support,
-                              title: 'are_you_sure_to_delete_account'.tr,
-                              description: 'it_will_remove_your_all_information'.tr, isLogOut: true,
-                              onYesPressed: () => profileController.deleteUser(),
-                            ), useSafeArea: false);
-                          },
-                        ),
                     ]),
                   )
                 ]),

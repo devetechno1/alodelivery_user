@@ -12,7 +12,6 @@ import 'package:sixam_mart/features/location/controllers/location_controller.dar
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
@@ -163,7 +162,7 @@ class _NewUserSetupScreenState extends State<NewUserSetupScreen> {
                       if(_formKeyInfo!.currentState!.validate()) {
 
                         if(widget.phone == null || widget.phone!.isEmpty) {
-                          String numberWithCountryCode =  _countryDialCode! + _phoneController.text.removeZerosInFirst;
+                          String numberWithCountryCode =  _countryDialCode! + _phoneController.text.trim();
                           PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
                           numberWithCountryCode = phoneValid.phone;
                           if(!phoneValid.isValid) {

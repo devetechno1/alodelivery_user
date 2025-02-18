@@ -18,8 +18,6 @@ import 'package:sixam_mart/features/home/widgets/views/top_offers_near_me.dart';
 import 'package:sixam_mart/features/home/widgets/views/visit_again_view.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
 
-import '../../../../util/app_constants.dart';
-
 
 class GroceryHomeScreen extends StatelessWidget {
   const GroceryHomeScreen({super.key});
@@ -43,34 +41,20 @@ class GroceryHomeScreen extends StatelessWidget {
       ),
 
       const CategoryView(),
-      if (AppConstants.removeStores) ...[
-        const SpecialOfferView(isFood: false, isShop: false),
-        const HighlightWidget(),
-        const FlashSaleViewWidget(),
-        const MostPopularItemView(isFood: false, isShop: false),
-        const MiddleSectionBannerView(),
-        const BestReviewItemView(),
-        const JustForYouView(),
-        const TopOffersNearMe(),
-        const ItemThatYouLoveView(forShop: false),
-        isLoggedIn ? const PromoCodeBannerView() : const SizedBox(),
-        const PromotionalBannerView(),
-      ] else ...[
-        isLoggedIn ? const VisitAgainView() : const SizedBox(),
-        const SpecialOfferView(isFood: false, isShop: false),
-        const HighlightWidget(),
-        const FlashSaleViewWidget(),
-        const BestStoreNearbyView(),
-        const MostPopularItemView(isFood: false, isShop: false),
-        const MiddleSectionBannerView(),
-        const BestReviewItemView(),
-        const JustForYouView(),
-        const TopOffersNearMe(),
-        const ItemThatYouLoveView(forShop: false),
-        isLoggedIn ? const PromoCodeBannerView() : const SizedBox(),
-        const NewOnMartView(isPharmacy: false, isShop: false),
-        const PromotionalBannerView(),
-      ]
+      isLoggedIn ? const VisitAgainView() : const SizedBox(),
+      const SpecialOfferView(isFood: false, isShop: false),
+      const HighlightWidget(),
+      const FlashSaleViewWidget(),
+      const BestStoreNearbyView(),
+      const MostPopularItemView(isFood: false, isShop: false),
+      const MiddleSectionBannerView(),
+      const BestReviewItemView(),
+      const JustForYouView(),
+      const TopOffersNearMe(),
+      const ItemThatYouLoveView(forShop: false),
+      isLoggedIn ? const PromoCodeBannerView() : const SizedBox(),
+      const NewOnMartView(isPharmacy: false, isShop: false),
+      const PromotionalBannerView(),
     ]);
   }
 }

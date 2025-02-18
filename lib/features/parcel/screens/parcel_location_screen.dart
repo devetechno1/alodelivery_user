@@ -14,7 +14,6 @@ import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
@@ -217,7 +216,7 @@ class _ParcelLocationScreenState extends State<ParcelLocationScreen> with Ticker
               _validateSender(parcelController);
             }
             else{
-              String numberWithCountryCode = '${parcelController.receiverCountryCode??''}${_receiverPhoneController.text.removeZerosInFirst}';
+              String numberWithCountryCode = '${parcelController.receiverCountryCode??''}${_receiverPhoneController.text.trim()}';
               PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
               numberWithCountryCode = phoneValid.phone;
 
@@ -269,7 +268,7 @@ class _ParcelLocationScreenState extends State<ParcelLocationScreen> with Ticker
   }
 
   Future<void> _validateSender(ParcelController parcelController) async {
-    String numberWithCountryCode = '${parcelController.senderCountryCode??''}${_senderPhoneController.text.removeZerosInFirst}';
+    String numberWithCountryCode = '${parcelController.senderCountryCode??''}${_senderPhoneController.text.trim()}';
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 

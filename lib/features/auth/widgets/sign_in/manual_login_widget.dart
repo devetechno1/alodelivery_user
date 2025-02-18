@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sixam_mart/common/widgets/custom_button.dart';
@@ -12,7 +11,6 @@ import 'package:sixam_mart/features/verification/screens/forget_pass_screen.dart
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -101,36 +99,34 @@ class ManualLoginWidget extends StatelessWidget {
 
 
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Expanded(
-            child: InkWell(
-              onTap: () => authController.toggleRememberMe(),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 30, width: 24,
-                    child: Checkbox(
-                      side: BorderSide(color: Theme.of(context).hintColor),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      activeColor: Theme.of(context).primaryColor,
-                      value: authController.isActiveRememberMe,
-                      onChanged: (bool? isChecked) => authController.toggleRememberMe(),
-                    ),
+          InkWell(
+            onTap: () => authController.toggleRememberMe(),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 24, width: 24,
+                  child: Checkbox(
+                    side: BorderSide(color: Theme.of(context).hintColor),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    activeColor: Theme.of(context).primaryColor,
+                    value: authController.isActiveRememberMe,
+                    onChanged: (bool? isChecked) => authController.toggleRememberMe(),
                   ),
-                  const SizedBox(width: Dimensions.paddingSizeSmall),
-            
-                  Text('remember_me'.tr, style: robotoRegular),
-                ],
-              ),
+                ),
+                const SizedBox(width: Dimensions.paddingSizeSmall),
+
+                Text('remember_me'.tr, style: robotoRegular),
+              ],
             ),
           ),
-          const SizedBox(width: Dimensions.paddingSizeSmall),
+
           TextButton(
             style: TextButton.styleFrom(padding: EdgeInsets.zero),
             onPressed: () {
               Get.toNamed(RouteHelper.getForgotPassRoute());
             },
-            child: Text('forgot_password_q'.tr, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
+            child: Text('${'forgot_password'.tr}?', style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
           ),
         ]),
 
@@ -260,30 +256,27 @@ class ManualLoginWidget extends StatelessWidget {
 
 
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () => authController.toggleRememberMe(),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        height: 30, width: 24,
-                        child: Checkbox(
-                          side: BorderSide(color: Theme.of(context).hintColor),
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          activeColor: Theme.of(context).primaryColor,
-                          value: authController.isActiveRememberMe,
-                          onChanged: (bool? isChecked) => authController.toggleRememberMe(),
-                        ),
+              InkWell(
+                onTap: () => authController.toggleRememberMe(),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 24, width: 24,
+                      child: Checkbox(
+                        side: BorderSide(color: Theme.of(context).hintColor),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        activeColor: Theme.of(context).primaryColor,
+                        value: authController.isActiveRememberMe,
+                        onChanged: (bool? isChecked) => authController.toggleRememberMe(),
                       ),
-                      const SizedBox(width: Dimensions.paddingSizeSmall),
-                
-                      Text('remember_me'.tr, style: robotoRegular),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: Dimensions.paddingSizeSmall),
+
+                    Text('remember_me'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                  ],
                 ),
               ),
-              const SizedBox(width: Dimensions.paddingSizeSmall),
 
               TextButton(
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
@@ -295,7 +288,7 @@ class ManualLoginWidget extends StatelessWidget {
                     Get.toNamed(RouteHelper.getForgotPassRoute());
                   }
                 },
-                child: Text('forgot_password_q'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor)),
+                child: Text('${'forgot_password'.tr}?', style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor)),
               ),
             ]),
 
@@ -315,31 +308,30 @@ class ManualLoginWidget extends StatelessWidget {
 
             onlyManualLoginEnable ? Padding(
               padding: const EdgeInsets.only(top: Dimensions.paddingSizeSmall),
-              child: RichText(text: TextSpan(
-                style: robotoRegular.copyWith(color: Theme.of(context).hintColor),
-                children: [
-                  TextSpan(text: 'do_not_have_account'.tr),
-                  const TextSpan(text: ' '),
-                  TextSpan(text:'sign_up'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor),recognizer: TapGestureRecognizer()..onTap = () {
-                    if(AppConstants.mustLogin){
-                      Get.to(const SignUpWidget());
-                    }else{
-                      Get.back();
-                      Get.dialog(
-                        SizedBox(
-                          width: 700,
-                          child: Dialog(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusLarge)),
-                            backgroundColor: Theme.of(context).cardColor,
-                            insetPadding: EdgeInsets.zero,
-                            child: const SignUpWidget(),
-                          ),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text('do_not_have_account'.tr, style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
+
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                    Get.dialog(
+                      SizedBox(
+                        width: 700,
+                        child: Dialog(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+                          backgroundColor: Theme.of(context).cardColor,
+                          insetPadding: EdgeInsets.zero,
+                          child: const SignUpWidget(),
                         ),
-                      );
-                    }
-                  }),
-                ],
-              )),
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                    child: Text('sign_up'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
+                  ),
+                ),
+              ]),
             ) : const SizedBox(),
             const SizedBox(height: Dimensions.paddingSizeLarge),
           ]),
@@ -408,31 +400,30 @@ class ManualLoginWidget extends StatelessWidget {
           ) : const SizedBox(),
           const SizedBox(height: Dimensions.paddingSizeLarge),
 
-          RichText(text: TextSpan(
-            style: robotoRegular.copyWith(color: Theme.of(context).hintColor),
-            children: [
-              TextSpan(text: 'do_not_have_account'.tr),
-              const TextSpan(text: ' '),
-              TextSpan(text:'sign_up'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor),recognizer: TapGestureRecognizer()..onTap = () {
-                if(AppConstants.mustLogin){
-                  Get.to(const SignUpWidget());
-                }else{
-                  Get.back();
-                  Get.dialog(
-                    SizedBox(
-                      width: 700,
-                      child: Dialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusLarge)),
-                        backgroundColor: Theme.of(context).cardColor,
-                        insetPadding: EdgeInsets.zero,
-                        child: const SignUpWidget(),
-                      ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text('do_not_have_account'.tr, style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
+
+            InkWell(
+              onTap: () {
+                Get.back();
+                Get.dialog(
+                  SizedBox(
+                    width: 700,
+                    child: Dialog(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusLarge)),
+                      backgroundColor: Theme.of(context).cardColor,
+                      insetPadding: EdgeInsets.zero,
+                      child: const SignUpWidget(),
                     ),
-                  );
-                }
-              }),
-            ],
-          )),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                child: Text('sign_up'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
+              ),
+            ),
+          ]),
         ])) : const SizedBox(),
 
       ]),

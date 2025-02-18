@@ -13,7 +13,6 @@ import 'package:sixam_mart/features/home/widgets/views/visit_again_view.dart';
 import 'package:sixam_mart/features/home/widgets/banner_view.dart';
 import 'package:sixam_mart/features/home/widgets/views/category_view.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 
 class PharmacyHomeScreen extends StatelessWidget {
   const PharmacyHomeScreen({super.key});
@@ -37,26 +36,17 @@ class PharmacyHomeScreen extends StatelessWidget {
       ),
 
       const CategoryView(),
-      if (AppConstants.removeStores) ...[
-        const ProductWithCategoriesView(),
-        const HighlightWidget(),
-        const MiddleSectionBannerView(),
-        const JustForYouView(),
-        const TopOffersNearMe(),
-        const CommonConditionView(),
-        const PromotionalBannerView(),
-      ] else ...[
-        if(isLoggedIn) const VisitAgainView(),
-        const ProductWithCategoriesView(),
-        const HighlightWidget(),
-        const MiddleSectionBannerView(),
-        const BestStoreNearbyView(),
-        const JustForYouView(),
-        const TopOffersNearMe(),
-        const NewOnMartView(isShop: false, isPharmacy: true, isNewStore: true),
-        const CommonConditionView(),
-        const PromotionalBannerView(),
-      ]
+      isLoggedIn ? const VisitAgainView() : const SizedBox(),
+      const ProductWithCategoriesView(),
+      const HighlightWidget(),
+      const MiddleSectionBannerView(),
+      const BestStoreNearbyView(),
+      const JustForYouView(),
+      const TopOffersNearMe(),
+      const NewOnMartView(isShop: false, isPharmacy: true, isNewStore: true),
+      const CommonConditionView(),
+      const PromotionalBannerView(),
+
     ]);
   }
 }

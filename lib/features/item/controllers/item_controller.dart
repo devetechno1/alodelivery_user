@@ -28,9 +28,6 @@ class ItemController extends GetxController implements GetxService {
   
   List<Item>? _popularItemList;
   List<Item>? get popularItemList => _popularItemList;
-
-  List<Item>? _popularItemListInCategory;
-  List<Item>? get popularItemListInCategory => _popularItemListInCategory;
   
   List<Item>? _reviewedItemList;
   List<Item>? get reviewedItemList => _reviewedItemList;
@@ -147,31 +144,6 @@ class ItemController extends GetxController implements GetxService {
     _recommendedItemList = null;
   }
 
-
-  Future<void> getPopularItemListInCategory(String type, String categoryId, [DataSourceEnum dataSource = DataSourceEnum.client]) async {
-    _popularItemListInCategory = null;
-
-    _popularType = type;
-    List<Item>? items;
-    if(dataSource == DataSourceEnum.local) {
-      items = await itemServiceInterface.getPopularItemList(type, dataSource, categoryId);
-      _preparePopularItemsInCategory(items);
-      getPopularItemListInCategory(type,categoryId, DataSourceEnum.client);
-    } else {
-      items = await itemServiceInterface.getPopularItemList(type, dataSource, categoryId);
-      _preparePopularItemsInCategory(items);
-    }
-  }
-  _preparePopularItemsInCategory(List<Item>? items) {
-    if (items != null) {
-      _popularItemListInCategory = [];
-      _popularItemListInCategory!.addAll(items);
-    }
-    _isLoading = false;
-    update();
-  }
-
-
   Future<void> getPopularItemList(bool reload, String type, bool notify, {DataSourceEnum dataSource = DataSourceEnum.local, bool fromRecall = false}) async {
     _popularType = type;
     if(reload) {
@@ -183,11 +155,11 @@ class ItemController extends GetxController implements GetxService {
     if(_popularItemList == null || reload || fromRecall) {
       List<Item>? items;
       if(dataSource == DataSourceEnum.local) {
-        items = await itemServiceInterface.getPopularItemList(type, dataSource, null);
+        items = await itemServiceInterface.getPopularItemList(type, dataSource);
         _preparePopularItems(items);
         getPopularItemList(false, type, notify, dataSource: DataSourceEnum.client, fromRecall: true);
       } else {
-        items = await itemServiceInterface.getPopularItemList(type, dataSource, null);
+        items = await itemServiceInterface.getPopularItemList(type, dataSource);
         _preparePopularItems(items);
       }
 
@@ -516,9 +488,9 @@ class ItemController extends GetxController implements GetxService {
     }
   }
 
-  void setImageSliderIndex(int index, [bool makeUpdate = true]) {
+  void setImageSliderIndex(int index) {
     _imageSliderIndex = index;
-    if(makeUpdate) update();
+    update();
   }
 
   double? getStartingPrice(Item item) {

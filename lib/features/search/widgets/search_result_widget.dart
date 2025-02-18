@@ -1,7 +1,6 @@
 import 'package:sixam_mart/features/search/controllers/search_controller.dart' as search;
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/features/search/widgets/filter_widget.dart';
@@ -61,7 +60,7 @@ class SearchResultWidgetState extends State<SearchResultWidget> with TickerProvi
               'results_found'.tr,
               style: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontSize: Dimensions.fontSizeSmall),
             )),
-            ( !ResponsiveHelper.isDesktop(context)  && widget.searchText.isNotEmpty) ? InkWell(
+            ( ResponsiveHelper.isMobile(context)  && widget.searchText.isNotEmpty) ? InkWell(
               onTap: () {
                 List<double?> prices = [];
                 if(!Get.find<search.SearchController>().isStore) {
@@ -79,7 +78,7 @@ class SearchResultWidgetState extends State<SearchResultWidget> with TickerProvi
         )));
       }),
 
-      ResponsiveHelper.isDesktop(context) || AppConstants.removeStores ? const SizedBox() :
+      ResponsiveHelper.isDesktop(context) ? const SizedBox() :
       Center(child: Container(
         width: Dimensions.webMaxWidth,
         color: Theme.of(context).cardColor,
@@ -108,9 +107,7 @@ class SearchResultWidgetState extends State<SearchResultWidget> with TickerProvi
           }
           return false;
         },
-        child: AppConstants.removeStores?
-        const ItemViewWidget(isItem: false)
-        : TabBarView(
+        child: TabBarView(
           controller: _tabController,
           children: const [
             ItemViewWidget(isItem: false),

@@ -116,7 +116,7 @@ class CartController extends GetxController implements GetxService {
       List<AddOns> addOnList = cartServiceInterface.prepareAddonList(cartModel);
 
       _addOnsList.add(addOnList);
-      _availableList.add(!cartModel.isNotAvailable && DateConverter.isAvailable(cartModel.item!.availableTimeStarts, cartModel.item!.availableTimeEnds));
+      _availableList.add(DateConverter.isAvailable(cartModel.item!.availableTimeStarts, cartModel.item!.availableTimeEnds));
 
       _addOns = cartServiceInterface.calculateAddonPrice(_addOns, addOnList, cartModel);
 
@@ -162,10 +162,7 @@ class CartController extends GetxController implements GetxService {
     return cartServiceInterface.getCartId(cartIndex, _cartList);
   }
 
-  int cartIndex = -1;
-
   Future<void> setQuantity(bool isIncrement, int cartIndex, int? stock, int ? quantityLimit) async {
-    this.cartIndex = cartIndex;
     _isLoading = true;
     update();
 
@@ -223,7 +220,6 @@ class CartController extends GetxController implements GetxService {
       _cartList = [];
       _cartList.addAll(cartServiceInterface.formatOnlineCartToLocalCart(onlineCartModel: onlineCartList));
       calculationCart();
-      sortCart();
       success = true;
     }
     _isLoading = false;
@@ -241,26 +237,12 @@ class CartController extends GetxController implements GetxService {
       _cartList = [];
       _cartList.addAll(cartServiceInterface.formatOnlineCartToLocalCart(onlineCartModel: onlineCartList));
       calculationCart();
-      sortCart();
       success = true;
     }
     _isLoading = false;
     update();
 
     return success;
-  }
-
-  void sortCart() {
-    _cartList.sort((a, b) {
-      // Items that are not available should come first
-      if (a.isNotAvailable && !b.isNotAvailable) {
-        return -1; // a comes before b
-      } else if (!a.isNotAvailable && b.isNotAvailable) {
-        return 1; // b comes before a
-      }
-      // If both have the same availability, maintain their relative order
-      return 0; 
-    });
   }
 
   Future<void> updateCartQuantityOnline(int cartId, double price, int quantity) async {
@@ -272,7 +254,6 @@ class CartController extends GetxController implements GetxService {
       calculationCart();
       await Future.delayed(const Duration(milliseconds: 200));
     }
-    cartIndex = -1;
     _isLoading = false;
     update();
   }
@@ -285,7 +266,6 @@ class CartController extends GetxController implements GetxService {
         _cartList = [];
         _cartList.addAll(cartServiceInterface.formatOnlineCartToLocalCart(onlineCartModel: onlineCartList));
         calculationCart();
-        sortCart();
       }
       _isLoading = false;
       update();

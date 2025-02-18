@@ -11,6 +11,7 @@ import 'package:sixam_mart/features/parcel/domain/models/video_content_model.dar
 import 'package:sixam_mart/features/parcel/domain/models/why_choose_model.dart';
 import 'package:sixam_mart/features/parcel/domain/repositories/parcel_repository_interface.dart';
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
+import 'package:sixam_mart/local/cache_response.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 
 class ParcelRepository implements ParcelRepositoryInterface {
@@ -104,7 +105,7 @@ class ParcelRepository implements ParcelRepositoryInterface {
 
   Future<List<Data>?> _getParcelInstruction(int offset) async {
     List<Data>? parcelInstructionList;
-    Response response = await apiClient.getData('${AppConstants.parcelInstructionUri}?limit=20&offset=$offset');
+    Response response = await apiClient.getData('${AppConstants.parcelInstructionUri}?limit=10&offset=$offset');
     if(response.statusCode == 200) {
       parcelInstructionList = [];
       parcelInstructionList.addAll(ParcelInstructionModel.fromJson(response.body).data!);

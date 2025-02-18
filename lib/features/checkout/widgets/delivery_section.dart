@@ -13,8 +13,6 @@ import 'package:sixam_mart/common/widgets/custom_dropdown.dart';
 import 'package:sixam_mart/common/widgets/custom_text_field.dart';
 import 'package:sixam_mart/features/checkout/widgets/guest_delivery_address.dart';
 
-import '../../location/controllers/location_controller.dart';
-
 class DeliverySection extends StatelessWidget {
   final CheckoutController checkoutController;
   final List<AddressModel> address;
@@ -49,17 +47,15 @@ class DeliverySection extends StatelessWidget {
             Text('deliver_to'.tr, style: robotoMedium),
             TextButton.icon(
               onPressed: () async {
-                final address = await Get.toNamed(RouteHelper.getAddAddressRoute(true, false, checkoutController.store!.zoneId));
+                var address = await Get.toNamed(RouteHelper.getAddAddressRoute(true, false, checkoutController.store!.zoneId));
                 if(address != null) {
                   checkoutController.getDistanceInKM(
-                    LatLng(double.parse(address.latitude ?? ''), double.parse(address.longitude ?? '')),
+                    LatLng(double.parse(address.latitude), double.parse(address.longitude)),
                     LatLng(double.parse(checkoutController.store!.latitude!), double.parse(checkoutController.store!.longitude!)),
                   );
                   checkoutController.streetNumberController.text = address.streetNumber ?? '';
                   checkoutController.houseController.text = address.house ?? '';
                   checkoutController.floorController.text = address.floor ?? '';
-                  final AddressModel? add = await Get.find<LocationController>().prepareZoneInCheckout(this.address[checkoutController.addressIndex!]);
-                  if(add != null) this.address[checkoutController.addressIndex!] = add;
                 }
               },
               icon: const Icon(Icons.add, size: 20),
@@ -98,7 +94,7 @@ class DeliverySection extends StatelessWidget {
                     itemBuilder: (context)  => List.generate(
                       address.length, (index) => PopupMenuItem(
                       child: InkWell(
-                        onTap: () async{
+                        onTap: () {
                           checkoutController.getDistanceInKM(
                             LatLng(
                               double.parse(address[index].latitude!),
@@ -110,9 +106,7 @@ class DeliverySection extends StatelessWidget {
                           checkoutController.streetNumberController.text = address[checkoutController.addressIndex!].streetNumber ?? '';
                           checkoutController.houseController.text = address[checkoutController.addressIndex!].house ?? '';
                           checkoutController.floorController.text = address[checkoutController.addressIndex!].floor ?? '';
-                          final AddressModel? add = await Get.find<LocationController>().prepareZoneInCheckout(address[index]);
-                          if(add != null) address[index] = add;
-                          Navigator.pop(Get.context!);
+                          Navigator.pop(context);
                         },
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +155,7 @@ class DeliverySection extends StatelessWidget {
             ),
             child: CustomDropdown<int>(
 
-              onChange: (int? value, int index)async {
+              onChange: (int? value, int index) {
                 checkoutController.getDistanceInKM(
                   LatLng(
                     double.parse(address[index].latitude!),
@@ -175,8 +169,6 @@ class DeliverySection extends StatelessWidget {
                 checkoutController.houseController.text = address[checkoutController.addressIndex!].house ?? '';
                 checkoutController.floorController.text = address[checkoutController.addressIndex!].floor ?? '';
 
-                final AddressModel? add = await Get.find<LocationController>().prepareZoneInCheckout(address[index]);
-                if(add != null) address[index] = add;
               },
               dropdownButtonStyle: DropdownButtonStyle(
                 height: 45,
@@ -203,7 +195,6 @@ class DeliverySection extends StatelessWidget {
           !isDesktop ? CustomTextField(
             labelText: 'street_number'.tr,
             titleText: 'write_street_number'.tr,
-            isEnabled: false,
             inputType: TextInputType.streetAddress,
             focusNode: checkoutController.streetNode,
             nextFocus: checkoutController.houseNode,
@@ -217,7 +208,6 @@ class DeliverySection extends StatelessWidget {
                   child: CustomTextField(
                     titleText: 'write_street_number'.tr,
                     labelText: 'street_number'.tr,
-                    isEnabled: false,
                     inputType: TextInputType.streetAddress,
                     focusNode: checkoutController.streetNode,
                     nextFocus: checkoutController.houseNode,
@@ -230,7 +220,6 @@ class DeliverySection extends StatelessWidget {
                   child: CustomTextField(
                     titleText: 'write_house_number'.tr,
                     labelText: 'house'.tr,
-                    isEnabled: false,
                     inputType: TextInputType.text,
                     focusNode: checkoutController.houseNode,
                     nextFocus: checkoutController.floorNode,
@@ -243,7 +232,6 @@ class DeliverySection extends StatelessWidget {
                   child: CustomTextField(
                     titleText: 'write_floor_number'.tr,
                     labelText: 'floor'.tr,
-                    isEnabled: false,
                     inputType: TextInputType.text,
                     focusNode: checkoutController.floorNode,
                     inputAction: TextInputAction.done,

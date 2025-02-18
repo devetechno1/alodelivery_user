@@ -11,9 +11,10 @@ class WebPromotionalBannerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BannerController>(builder: (bannerController) {
+
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeLarge),
-        child: bannerController.promotionalBanner != null ? !bannerController.promotionalBanner!.isNullClass ? Container(
+        child: bannerController.promotionalBanner != null ? Container(
           height: 235, width: context.width,
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
@@ -26,7 +27,7 @@ class WebPromotionalBannerView extends StatelessWidget {
               fit: BoxFit.cover, height: 235, width: double.infinity,
             ),
           ),
-        ): const SizedBox() : const WebPromotionalBannerShimmerView(),
+        ) : const WebPromotionalBannerShimmerView(),
       );
     });
   }

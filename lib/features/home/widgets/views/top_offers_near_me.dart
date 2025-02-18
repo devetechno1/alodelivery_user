@@ -48,7 +48,7 @@ class TopOffersNearMe extends StatelessWidget {
             ),
           ),
         ]),
-      ) : const SizedBox.shrink() : storeController.isLoading? const WebNewOnShimmerView(): const SizedBox();
+      ) : const SizedBox.shrink() : const WebNewOnShimmerView();
     });
   }
 }

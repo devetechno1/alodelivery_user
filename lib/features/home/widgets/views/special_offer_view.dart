@@ -60,8 +60,7 @@ class SpecialOfferView extends StatelessWidget {
 
 class ItemShimmerView extends StatelessWidget {
   final bool isPopularItem;
-  final bool isOffer;
-  const ItemShimmerView({super.key, required this.isPopularItem, this.isOffer = false});
+  const ItemShimmerView({super.key, required this.isPopularItem});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +73,7 @@ class ItemShimmerView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: Dimensions.paddingSizeDefault, left: Dimensions.paddingSizeDefault, right: Dimensions.paddingSizeDefault),
             child: TitleWidget(
-              title: isPopularItem ? isOffer? "all_available_offers".tr : 'most_popular_products'.tr : 'special_offer'.tr,
+              title: isPopularItem ? 'most_popular_items'.tr : 'special_offer'.tr,
               image: isPopularItem ? Images.mostPopularIcon : Images.discountOfferIcon,
             ),
           ),

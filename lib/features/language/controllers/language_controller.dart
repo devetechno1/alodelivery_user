@@ -17,7 +17,7 @@ class LocalizationController extends GetxController implements GetxService {
   Locale _locale = Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode);
   Locale get locale => _locale;
 
-  late bool _isLtr = languageServiceInterface.setLTR(_locale);
+  bool _isLtr = true;
   bool get isLtr => _isLtr;
 
   List<LanguageModel> _languages = [];

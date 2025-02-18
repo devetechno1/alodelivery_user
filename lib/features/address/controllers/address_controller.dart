@@ -28,18 +28,6 @@ class AddressController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  int updateAddressListVariable(AddressModel addressModel){
-    int i = 0;
-    for (; i < (_addressList?.length ?? 0); i++) {
-      if (_addressList![i].id == addressModel.id) {
-        _addressList![i] = addressModel;
-        break;
-      }
-    }
-    update();
-    return i;
-  }
-
   Future<ResponseModel> updateAddress(AddressModel addressModel, int? addressId) async {
     _isLoading = true;
     update();

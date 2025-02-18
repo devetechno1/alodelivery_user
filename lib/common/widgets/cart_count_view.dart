@@ -9,9 +9,7 @@ class CartCountView extends StatelessWidget {
   final Item item;
   final Widget? child;
   final int? index;
-  final double bottomPadding;
-  final AlignmentGeometry? alignment;
-  const CartCountView({super.key, required this.item, this.child, this.index = -1, this.bottomPadding = 15, this.alignment});
+  const CartCountView({super.key, required this.item, this.child, this.index = -1});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,13 @@ class CartCountView extends StatelessWidget {
       return cartQty != 0 ? Center(
         child: Container(
           width: 100,
-          margin: cartController.cartList[cartIndex].quantity! >= 1? EdgeInsets.only(bottom: bottomPadding) : null,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(Dimensions.radiusExtraLarge),
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-              onTap: cartController.isLoading && cartController.directAddCartItemIndex == index? null : () {
+              onTap: cartController.isLoading ? null : () {
                 if (cartController.cartList[cartIndex].quantity! > 1) {
                   cartController.setDirectlyAddToCartIndex(index);
                   cartController.setQuantity(false, cartIndex, cartController.cartList[cartIndex].stock, cartController.cartList[cartIndex].item!.quantityLimit);
@@ -36,7 +33,6 @@ class CartCountView extends StatelessWidget {
                   cartController.removeFromCart(cartIndex);
                 }
               },
-              borderRadius: BorderRadius.circular(100),
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
@@ -60,11 +56,10 @@ class CartCountView extends StatelessWidget {
             ),
 
             InkWell(
-              onTap: cartController.isLoading && cartController.directAddCartItemIndex == index ? null : () {
+              onTap: cartController.isLoading ? null : () {
                 cartController.setDirectlyAddToCartIndex(index);
                 cartController.setQuantity(true, cartIndex, cartController.cartList[cartIndex].stock, cartController.cartList[cartIndex].quantityLimit);
               },
-              borderRadius: BorderRadius.circular(100),
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
@@ -79,21 +74,17 @@ class CartCountView extends StatelessWidget {
             ),
           ]),
         ),
-      ) : Align(
-        alignment: alignment ?? AlignmentDirectional.topStart,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(100),
-          onTap: () {
-            Get.find<ItemController>().itemDirectlyAddToCart(item, context);
-          },
-          child: child ?? Container(
-            height: 25, width: 25,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle, color: Theme.of(context).cardColor,
-              boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
-            ),
-            child: Icon(Icons.add, size: 20, color: Theme.of(context).primaryColor),
+      ) : InkWell(
+        onTap: () {
+          Get.find<ItemController>().itemDirectlyAddToCart(item, context);
+        },
+        child: child ?? Container(
+          height: 25, width: 25,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle, color: Theme.of(context).cardColor,
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
           ),
+          child: Icon(Icons.add, size: 20, color: Theme.of(context).primaryColor),
         ),
       );
     });

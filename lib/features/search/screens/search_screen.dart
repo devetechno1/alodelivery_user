@@ -8,7 +8,6 @@ import 'package:sixam_mart/features/search/controllers/search_controller.dart' a
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -101,52 +100,35 @@ class SearchScreenState extends State<SearchScreen> with TickerProviderStateMixi
                       Text('search_items_and_stores'.tr, style: robotoMedium),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
 
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: SizedBox(width: Dimensions.webMaxWidth, child: GetBuilder<search.SearchController>(builder: (searchController) {
-                                return SearchFieldWidget(
-                                  controller: _searchController,
-                                  radius: 50,
-                                  hint: Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText!
-                                      ? (AppConstants.removeStores? 'search_food'.tr : 'search_food_or_restaurant'.tr) : (AppConstants.removeStores? 'search_item'.tr : 'search_item_or_store'.tr),
-                                  suffixIcon: searchController.searchHomeText!.isNotEmpty ? Icons.cancel : CupertinoIcons.search,
-                                  iconColor: Theme.of(context).disabledColor,
-                                  filledColor: Theme.of(context).colorScheme.surface,
-                                  onChanged: (text) {
-                                    _searchSuggestions(text);
-                                    searchController.setSearchText(text);
-                                  },
-                                  iconPressed: () {
-                                    if(searchController.searchHomeText!.isNotEmpty) {
-                                      _searchController.text = '';
-                                      _showSuggestion = false;
-                                      searchController.setSearchMode(true);
-                                      searchController.clearSearchHomeText();
-                                    }else {
-                                      searchData();
-                                    }
-                                  },
-                                  onSubmit: (text) => searchData(),
-                                );
-                              })),
-                            ),
-                            if(!searchController.isSearchMode && AppConstants.removeStores)...[
-                              const SizedBox(width: Dimensions.paddingSizeDefault),
-                              InkWell(
-                                  onTap: () {
-                                    _actionSearch(false, _searchController.text.trim(), false);
-                                  },
-                                  child: Image.asset(Images.filter, height: 28, width: 28))
-                            ]
-                          ],
-                        ),
-                      ),
+                      SizedBox(width: Dimensions.webMaxWidth, child: GetBuilder<search.SearchController>(builder: (searchController) {
+                        return SearchFieldWidget(
+                          controller: _searchController,
+                          radius: 50,
+                          hint: Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText!
+                              ? 'search_food_or_restaurant'.tr : 'search_item_or_store'.tr,
+                          suffixIcon: searchController.searchHomeText!.isNotEmpty ? Icons.cancel : CupertinoIcons.search,
+                          iconColor: Theme.of(context).disabledColor,
+                          filledColor: Theme.of(context).colorScheme.surface,
+                          onChanged: (text) {
+                            _searchSuggestions(text);
+                            searchController.setSearchText(text);
+                          },
+                          iconPressed: () {
+                            if(searchController.searchHomeText!.isNotEmpty) {
+                              _searchController.text = '';
+                              _showSuggestion = false;
+                              searchController.setSearchMode(true);
+                              searchController.clearSearchHomeText();
+                            }else {
+                              searchData();
+                            }
+                          },
+                          onSubmit: (text) => searchData(),
+                        );
+                      })),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
 
-                      !searchController.isSearchMode && !AppConstants.removeStores?
+                      !searchController.isSearchMode ?
                       Center(
                         child: SizedBox(
                           width: Dimensions.webMaxWidth,

@@ -200,8 +200,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                 ]),
                               ),
 
-                              PositionedDirectional(
-                                end:  5, bottom: 5,
+                              Positioned(
+                                right: Get.find<LocalizationController>().isLtr ? 5 : null, bottom: 5, left: Get.find<LocalizationController>().isLtr ? null : 5,
                                 child: Text(
                                   DateConverter.localDateToIsoStringAMPM(DateConverter.dateTimeStringToDate(
                                       conversation.conversations![index]!.lastMessageTime!)),

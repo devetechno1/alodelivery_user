@@ -18,8 +18,7 @@ import 'package:sixam_mart/features/location/screens/pick_map_screen.dart';
 
 class AddressBottomSheetWidget extends StatelessWidget {
   final bool fromDialog;
-  final String? text;
-  const AddressBottomSheetWidget({super.key, this.fromDialog = false, this.text});
+  const AddressBottomSheetWidget({super.key, this.fromDialog = false});
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +68,9 @@ class AddressBottomSheetWidget extends StatelessWidget {
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: fromDialog ? 50 : Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
-                  if(text != null) ...[
-                    Text(text!, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault)),
-                    const SizedBox(height: Dimensions.paddingSizeLarge),
-                  ],                
+
+                  Text('${'hey_welcome_back'.tr}\n${'which_location_do_you_want_to_select'.tr}', style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault)),
+                  const SizedBox(height: Dimensions.paddingSizeLarge),
 
                   Center(
                     child: addressController.addressList != null && addressController.addressList!.isEmpty ? Column(mainAxisSize: MainAxisSize.max,crossAxisAlignment: CrossAxisAlignment.center, children: [

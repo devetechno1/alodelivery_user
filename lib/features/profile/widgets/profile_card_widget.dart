@@ -20,7 +20,7 @@ class ProfileCardWidget extends StatelessWidget {
         boxShadow: [BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.1), blurRadius: 5, spreadRadius: 1)],
       ),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(image, height: 30, width: 30,color: Theme.of(context).primaryColor),
+        Image.asset(image, height: 30, width: 30),
         const SizedBox(height: Dimensions.paddingSizeSmall),
 
         Text(

@@ -116,7 +116,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       Future.delayed(const Duration(seconds: 1), () {
         showModalBottomSheet(
           context: Get.context!, isScrollControlled: true, backgroundColor: Colors.transparent,
-          builder: (con) => AddressBottomSheetWidget(text: '${'hey_welcome_back'.tr}\n${'which_location_do_you_want_to_select'.tr}'),
+          builder: (con) => const AddressBottomSheetWidget(),
         ).then((value) {
           Get.find<LocationController>().hideSuggestedLocation();
           setState(() {});

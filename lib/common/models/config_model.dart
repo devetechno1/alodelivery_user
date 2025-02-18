@@ -1,7 +1,6 @@
 import 'package:sixam_mart/common/models/module_model.dart';
 
 class ConfigModel {
-  bool? mustLogin;
   String? businessName;
   String? logoFullUrl;
   String? address;
@@ -84,7 +83,6 @@ class ConfigModel {
   CentralizeLoginSetup? centralizeLoginSetup;
 
   ConfigModel({
-    this.mustLogin,
     this.businessName,
     this.logoFullUrl,
     this.address,
@@ -166,7 +164,6 @@ class ConfigModel {
   });
 
   ConfigModel.fromJson(Map<String, dynamic> json) {
-    mustLogin = json['app_must_login']  == null ? null : json['app_must_login'] == 1 || json['app_must_login'] == true;
     businessName = json['business_name'];
     logoFullUrl = json['logo_full_url'];
     address = json['address'];
@@ -275,7 +272,6 @@ class ConfigModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['app_must_login'] = mustLogin == null? null : mustLogin! ? 1 : 0;
     data['business_name'] = businessName;
     data['logo_full_url'] = logoFullUrl;
     data['address'] = address;

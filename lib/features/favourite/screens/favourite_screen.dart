@@ -3,7 +3,6 @@ import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart/features/favourite/controllers/favourite_controller.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
@@ -47,7 +46,6 @@ class FavouriteScreenState extends State<FavouriteScreen> with SingleTickerProvi
 
         WebScreenTitleWidget(title: 'favourite'.tr),
 
-        if(!AppConstants.removeStores)
         SizedBox(
           width: Dimensions.webMaxWidth,
           child: Container(
@@ -73,10 +71,7 @@ class FavouriteScreenState extends State<FavouriteScreen> with SingleTickerProvi
           ),
         ),
 
-        Expanded(child: 
-        AppConstants.removeStores 
-        ? const FavItemViewWidget(isStore: false)
-        : TabBarView(
+        Expanded(child: TabBarView(
           controller: _tabController,
           physics: const NeverScrollableScrollPhysics(),
           children: const [

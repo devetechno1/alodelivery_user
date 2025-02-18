@@ -8,7 +8,6 @@ import 'package:sixam_mart/features/order/controllers/order_controller.dart';
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/common/widgets/custom_button.dart';
@@ -92,7 +91,7 @@ class _GuestTrackOrderInputViewWidgetState extends State<GuestTrackOrderInputVie
                       onPressed: () async {
                         String phone = _phoneNumberController.text.trim();
                         String orderId = _orderIdController.text.trim();
-                        String numberWithCountryCode = _countryDialCode! + phone.removeZerosInFirst;
+                        String numberWithCountryCode = _countryDialCode! + phone;
                         PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
                         numberWithCountryCode = phoneValid.phone;
 
@@ -163,7 +162,7 @@ class _GuestTrackOrderInputViewWidgetState extends State<GuestTrackOrderInputVie
               onPressed: () async {
                 String phone = _phoneNumberController.text.trim();
                 String orderId = _orderIdController.text.trim();
-                String numberWithCountryCode = _countryDialCode! + phone.removeZerosInFirst;
+                String numberWithCountryCode = _countryDialCode! + phone;
                 PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
                 numberWithCountryCode = phoneValid.phone;
 

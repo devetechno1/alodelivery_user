@@ -231,7 +231,7 @@ class StoreRepository implements StoreRepositoryInterface {
   Future<ItemModel?> getStoreSearchItemList(String searchText, String? storeID, int offset, String type, int? categoryID) async {
     ItemModel? storeSearchItemModel;
     Response response = await apiClient.getData(
-      '${AppConstants.searchUri}items/search?store_id=$storeID&name=$searchText&offset=$offset&limit=20&type=$type&category_id=${categoryID ?? ''}');
+      '${AppConstants.searchUri}items/search?store_id=$storeID&name=$searchText&offset=$offset&limit=10&type=$type&category_id=${categoryID ?? ''}');
     if(response.statusCode == 200){
       storeSearchItemModel = ItemModel.fromJson(response.body);
     }

@@ -5,7 +5,6 @@ import 'package:sixam_mart/features/home/widgets/highlight_widget.dart';
 import 'package:sixam_mart/features/home/widgets/views/category_view.dart';
 import 'package:sixam_mart/features/home/widgets/views/top_offers_near_me.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/features/home/widgets/bad_weather_widget.dart';
 import 'package:sixam_mart/features/home/widgets/views/best_reviewed_item_view.dart';
@@ -28,13 +27,9 @@ class FoodHomeScreen extends StatelessWidget {
 
       Container(
         width: MediaQuery.of(context).size.width,
-        decoration: Get.find<ThemeController>().darkTheme ? null : BoxDecoration(
+        decoration: Get.find<ThemeController>().darkTheme ? null : const BoxDecoration(
           image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                context.theme.primaryColor,
-                BlendMode.srcIn,
-              ),
-            image: const AssetImage(Images.foodModuleBannerBg),
+            image: AssetImage(Images.foodModuleBannerBg),
             fit: BoxFit.cover,
           ),
         ),
@@ -49,28 +44,16 @@ class FoodHomeScreen extends StatelessWidget {
       ),
 
       const CategoryView(),
-
-
-      if (AppConstants.removeStores) ...[
-        const SpecialOfferView(isFood: true, isShop: false),
-        const HighlightWidget(),
-        const TopOffersNearMe(),
-        const BestReviewItemView(),
-        const ItemThatYouLoveView(forShop: false),
-        const MostPopularItemView(isFood: true, isShop: false),
-        const JustForYouView(),
-      ] else ...[
-        if(isLoggedIn) const VisitAgainView(fromFood: true),
-        const SpecialOfferView(isFood: true, isShop: false),
-        const HighlightWidget(),
-        const TopOffersNearMe(),
-        const BestReviewItemView(),
-        const BestStoreNearbyView(),
-        const ItemThatYouLoveView(forShop: false),
-        const MostPopularItemView(isFood: true, isShop: false),
-        const JustForYouView(),
-        const NewOnMartView(isNewStore: true, isPharmacy: false, isShop: false),
-      ]
+      isLoggedIn ? const VisitAgainView(fromFood: true) : const SizedBox(),
+      const SpecialOfferView(isFood: true, isShop: false),
+      const HighlightWidget(),
+      const TopOffersNearMe(),
+      const BestReviewItemView(),
+      const BestStoreNearbyView(),
+      const ItemThatYouLoveView(forShop: false),
+      const MostPopularItemView(isFood: true, isShop: false),
+      const JustForYouView(),
+      const NewOnMartView(isNewStore: true, isPharmacy: false, isShop: false),
     ]);
   }
 }

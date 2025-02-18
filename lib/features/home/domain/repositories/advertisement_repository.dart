@@ -7,6 +7,7 @@ import 'package:sixam_mart/common/enums/data_source_enum.dart';
 import 'package:sixam_mart/features/home/domain/models/advertisement_model.dart';
 import 'package:sixam_mart/features/home/domain/repositories/advertisement_repository_interface.dart';
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
+import 'package:sixam_mart/local/cache_response.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 
 class AdvertisementRepository implements AdvertisementRepositoryInterface {

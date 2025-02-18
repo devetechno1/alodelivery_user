@@ -254,16 +254,15 @@ class WebMenuBar extends StatelessWidget implements PreferredSizeWidget {
                   }
                 }),
                 const SizedBox(width: 20),
-                if(!AppConstants.removeStores) ...[
-                  MenuButton(title: 'stores'.tr, onTap: () {   
-                    if(AddressHelper.getUserAddressFromSharedPref() != null) {
-                      Get.toNamed(RouteHelper.getAllStoreRoute('popular'));
-                    } else {
-                      showCustomSnackBar('please_select_address_first'.tr,);
-                    }
-                  }),
-                  const SizedBox(width: 20),
-                ]
+
+                MenuButton(title: 'stores'.tr, onTap: () {
+                  if(AddressHelper.getUserAddressFromSharedPref() != null) {
+                    Get.toNamed(RouteHelper.getAllStoreRoute('popular'));
+                  } else {
+                    showCustomSnackBar('please_select_address_first'.tr,);
+                  }
+                }),
+                const SizedBox(width: 20),
               ]
             ),
             const Expanded(child: SizedBox()),
@@ -301,11 +300,7 @@ class WebMenuBar extends StatelessWidget implements PreferredSizeWidget {
                   if (authController.isLoggedIn()) {
                     Get.toNamed(RouteHelper.getProfileRoute());
                   }else{
-                    if(AppConstants.mustLogin){
-                      Get.offAllNamed(RouteHelper.getSignInRoute(''));
-                    }else{
-                      Get.dialog(const Center(child: AuthDialogWidget(exitFromApp: false, backFromThis: false)), barrierDismissible: false,);
-                    }
+                    Get.dialog(const Center(child: AuthDialogWidget(exitFromApp: false, backFromThis: false)), barrierDismissible: false,);
                   }
                 },
                 child: Container(

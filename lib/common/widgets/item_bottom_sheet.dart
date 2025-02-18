@@ -27,8 +27,6 @@ import 'package:sixam_mart/features/checkout/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../util/app_constants.dart';
-
 class ItemBottomSheet extends StatefulWidget {
   final Item? item;
   final bool isCampaign;
@@ -194,28 +192,27 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                 widget.item!.name!, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge),
                                 maxLines: 2, overflow: TextOverflow.ellipsis,
                               ),
-                              if(!AppConstants.removeStores)
-                                InkWell(
-                                  onTap: () {
-                                    if(widget.inStorePage) {
-                                      Get.back();
-                                    }else {
-                                      Get.back();
-                                      Get.find<CartController>().forcefullySetModule(widget.item!.moduleId!);
-                                      Get.toNamed(
-                                        RouteHelper.getStoreRoute(id: widget.item!.storeId, page: 'item'),
-                                      );
-                                      Get.offNamed(RouteHelper.getStoreRoute(id: widget.item!.storeId, page: 'item'));
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                                    child: Text(
-                                      widget.item!.storeName!,
-                                      style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
-                                    ),
+                              InkWell(
+                                onTap: () {
+                                  if(widget.inStorePage) {
+                                    Get.back();
+                                  }else {
+                                    Get.back();
+                                    Get.find<CartController>().forcefullySetModule(widget.item!.moduleId!);
+                                    Get.toNamed(
+                                      RouteHelper.getStoreRoute(id: widget.item!.storeId, page: 'item'),
+                                    );
+                                    Get.offNamed(RouteHelper.getStoreRoute(id: widget.item!.storeId, page: 'item'));
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                                  child: Text(
+                                    widget.item!.storeName!,
+                                    style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
                                   ),
                                 ),
+                              ),
                               !widget.isCampaign ? RatingBar(rating: widget.item!.avgRating, size: 15, ratingCount: widget.item!.ratingCount) : const SizedBox(),
                               Text(
                                 '${PriceConverter.convertPrice(startingPrice, discount: initialDiscount, discountType: discountType)}'

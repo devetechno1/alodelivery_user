@@ -35,9 +35,6 @@ import 'package:sixam_mart/features/cart/widgets/web_suggested_item_view_widget.
 import 'package:sixam_mart/features/home/screens/home_screen.dart';
 import 'package:sixam_mart/features/store/screens/store_screen.dart';
 
-import '../../../util/app_constants.dart';
-import '../../dashboard/screens/dashboard_screen.dart';
-
 class CartScreen extends StatefulWidget {
   final bool fromNav;
   const CartScreen({super.key, required this.fromNav});
@@ -63,8 +60,9 @@ class _CartScreenState extends State<CartScreen> {
 
   Future<void> initCall() async {
     _initialBottomSheetShowHide();
-    await Get.find<CartController>().getCartDataOnline();
-    
+    if(Get.find<CartController>().cartList.isEmpty) {
+      await Get.find<CartController>().getCartDataOnline();
+    }
     if(Get.find<CartController>().cartList.isNotEmpty){
       if (kDebugMode) {
         print('----cart item : ${Get.find<CartController>().cartList[0].toJson()}');
@@ -189,15 +187,11 @@ class _CartScreenState extends State<CartScreen> {
                                           padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
                                           child: TextButton.icon(
                                             onPressed: (){
-                                              if(AppConstants.removeStores){
-                                                Get.offAll(() => const DashboardScreen(pageIndex: 0));
-                                              }else{
-                                                cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
-                                                Get.toNamed(
-                                                  RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
-                                                  arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
-                                                );
-                                              }
+                                              cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
+                                              Get.toNamed(
+                                                RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
+                                                arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
+                                              );
                                             },
                                             icon: Icon(Icons.add_circle_outline_sharp, color: Theme.of(context).primaryColor),
                                             label: Text('add_more_items'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeDefault)),

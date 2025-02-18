@@ -8,6 +8,7 @@ import 'package:sixam_mart/features/item/domain/models/basic_campaign_model.dart
 import 'package:sixam_mart/features/item/domain/models/item_model.dart';
 import 'package:sixam_mart/features/item/domain/repositories/campaign_repository_interface.dart';
 import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
+import 'package:sixam_mart/local/cache_response.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 
 class CampaignRepository implements CampaignRepositoryInterface {

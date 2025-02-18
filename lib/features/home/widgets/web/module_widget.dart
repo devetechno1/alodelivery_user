@@ -18,7 +18,7 @@ class ModuleWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeExtraSmall),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: const BorderRadiusDirectional.horizontal(start: Radius.circular(Dimensions.radiusExtraLarge)),
+          borderRadius: const BorderRadius.horizontal(left: Radius.circular(Dimensions.radiusExtraLarge)),
           boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
         ),
         child: SingleChildScrollView(

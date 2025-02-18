@@ -77,9 +77,9 @@ class ItemRepository implements ItemRepositoryInterface {
   }
 
   @override
-  Future getList({int? offset, String? type, bool isPopularItem = false, bool isReviewedItem = false, bool isFeaturedCategoryItems = false, bool isRecommendedItems = false, bool isCommonConditions = false, bool isDiscountedItems = false, DataSourceEnum? source, String? categoryId}) async {
+  Future getList({int? offset, String? type, bool isPopularItem = false, bool isReviewedItem = false, bool isFeaturedCategoryItems = false, bool isRecommendedItems = false, bool isCommonConditions = false, bool isDiscountedItems = false, DataSourceEnum? source}) async {
     if(isPopularItem) {
-      return await _getPopularItemList(type!, source: source ?? DataSourceEnum.client, categoryId: categoryId ?? '');
+      return await _getPopularItemList(type!, source: source ?? DataSourceEnum.client);
     } else if(isReviewedItem) {
       return await _getReviewedItemList(type!, source: source ?? DataSourceEnum.client);
     } else if(isFeaturedCategoryItems) {
@@ -93,14 +93,14 @@ class ItemRepository implements ItemRepositoryInterface {
     }
   }
 
-  Future<List<Item>?> _getPopularItemList(String type, {required DataSourceEnum source, required String categoryId}) async {
+  Future<List<Item>?> _getPopularItemList(String type, {required DataSourceEnum source}) async {
     List<Item>? popularItemList;
     String cacheId = '${AppConstants.popularItemUri}?type=$type-${Get.find<SplashController>().module!.id!}';
 
     switch(source) {
 
       case DataSourceEnum.client:
-        Response response = await apiClient.getData('${AppConstants.popularItemUri}?type=$type&category_id=$categoryId');
+        Response response = await apiClient.getData('${AppConstants.popularItemUri}?type=$type');
         if (response.statusCode == 200) {
           popularItemList = [];
           popularItemList.addAll(ItemModel.fromJson(response.body).items!);
@@ -108,7 +108,7 @@ class ItemRepository implements ItemRepositoryInterface {
         }
 
       case DataSourceEnum.local:
-        String? cacheResponseData = await LocalClient.organize(DataSourceEnum.local ,cacheId, null, null);
+        String? cacheResponseData = await LocalClient.organize(DataSourceEnum.local, cacheId, null, null);
         if(cacheResponseData != null) {
           popularItemList = [];
           popularItemList.addAll(ItemModel.fromJson(jsonDecode(cacheResponseData)).items!);

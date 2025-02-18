@@ -65,9 +65,6 @@ class CartModel {
   int? get quantityLimit => _quantityLimit;
   // ignore: unnecessary_getters_setters
   bool? get isLoading => _isLoading;
-
-  bool get isNotAvailable => (_stock ?? 0) < (_quantity ?? 0);
-
   set isLoading(bool? status) => _isLoading = status;
 
   CartModel.fromJson(Map<String, dynamic> json) {

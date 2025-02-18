@@ -8,7 +8,6 @@ import 'package:sixam_mart/features/cart/domain/models/cart_model.dart';
 import 'package:sixam_mart/features/item/domain/models/item_model.dart';
 import 'package:sixam_mart/helper/price_converter.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -65,7 +64,6 @@ class CartItemWidget extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
-            border:cart.isNotAvailable? Border.all(color: Theme.of(context).colorScheme.error) : null,
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
             boxShadow: !ResponsiveHelper.isMobile(context) ? [const BoxShadow()] : [const BoxShadow(
               color: Colors.black12, blurRadius: 5, spreadRadius: 1,
@@ -238,38 +236,19 @@ class CartItemWidget extends StatelessWidget {
                             style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeExtraLarge),
                           ),
 
-                          Builder(
-                            builder: (context) {
-                              final bool isLoading = cartController.isLoading && Get.find<CartController>().cartIndex == cartIndex;
-                              return QuantityButton(
-                                onTap:  isLoading ? null : () {
-                                  Get.find<CartController>().forcefullySetModule(Get.find<CartController>().cartList[0].item!.moduleId!);
-                                  Get.find<CartController>().setQuantity(true, cartIndex, cart.stock, cart.quantityLimit);
-                                },
-                                isIncrement: true,
-                                color: isLoading ? Theme.of(context).disabledColor : null,
-                              );
-                            }
+                          QuantityButton(
+                            onTap: cartController.isLoading ? null : () {
+                              Get.find<CartController>().forcefullySetModule(Get.find<CartController>().cartList[0].item!.moduleId!);
+                              Get.find<CartController>().setQuantity(true, cartIndex, cart.stock, cart.quantityLimit);
+                            },
+                            isIncrement: true,
+                            color: cartController.isLoading ? Theme.of(context).disabledColor : null,
                           ),
                         ]),
                       );
                     }
                   ),
                 ]),
-                if(cart.isNotAvailable)
-                  Center(
-                    child: Builder(
-                      builder: (context) {
-                        String text;
-                        if(cart.stock == 0){
-                          text = 'out_of_stock'.tr;
-                        }else{
-                          text = 'quantity_unavailable'.getTranslateWithArg('{quantity}','${cart.stock}');
-                        }
-                        return Text(text ,style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.error));
-                      }
-                    ),
-                  ),
 
               ],
             ),

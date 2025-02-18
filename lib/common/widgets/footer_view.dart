@@ -175,51 +175,48 @@ class _FooterViewState extends State<FooterView> {
 
               ])),
 
-              Flexible(
+              Expanded(
                 flex: 8,
-                child: Align(
+                child: Padding(
+                  padding: const EdgeInsets.all(Dimensions.paddingSizeExtremeLarge),
                   child: Container(
-                    margin: const EdgeInsets.all(Dimensions.paddingSizeExtremeLarge),
                     padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                       color: Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
-                    child: OverflowBar(
-                      alignment: MainAxisAlignment.spaceBetween,
-                      overflowAlignment: OverflowBarAlignment.center,
-                      overflowSpacing: Dimensions.paddingSizeDefault,
-                      spacing: Dimensions.paddingSizeDefault,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
+
                         Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment : MainAxisAlignment.spaceBetween, children: [
 
-                          if(Get.find<SplashController>().configModel!.toggleStoreRegistration!)...[
-                            FooterButton(title: 'become_a_store_owner'.tr, route: RouteHelper.getRestaurantRegistrationRoute()),
-                            const SizedBox(height: Dimensions.paddingSizeDefault),
-                          ],
-                          if(Get.find<SplashController>().configModel!.toggleDmRegistration!)...[
-                            FooterButton(title: 'become_a_delivery_man'.tr, route: RouteHelper.getDeliverymanRegistrationRoute()),
-                            const SizedBox(height: Dimensions.paddingSizeDefault),
-                          ],
-                  
+                          FooterButton(title: 'become_a_store_owner'.tr, route: RouteHelper.getRestaurantRegistrationRoute()),
+                          const SizedBox(height: Dimensions.paddingSizeDefault),
+
+                          FooterButton(title: 'become_a_delivery_man'.tr, route: RouteHelper.getDeliverymanRegistrationRoute()),
+                          const SizedBox(height: Dimensions.paddingSizeDefault),
+
                           FooterButton(title: 'help_support'.tr, route: RouteHelper.getSupportRoute()),
                           const SizedBox(height: Dimensions.paddingSizeDefault),
-                  
+
                           FooterButton(title: 'privacy_policy'.tr, route: RouteHelper.getHtmlRoute('privacy-policy')),
                           const SizedBox(height: Dimensions.paddingSizeDefault),
-                  
+
                           FooterButton(title: 'terms_and_condition'.tr, route: RouteHelper.getHtmlRoute('terms-and-condition')),
-                  
+
                           ],
                         ),
+
                         Column(children: [
-                  
+
                           Image.asset(Images.sendUsMail, width: 50, height: 50),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
-                  
+
                           Text('send_us_mail'.tr, style: robotoBold),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
-                  
+
                           InkWell(
                             onTap: () async {
                               String url = 'mailto:${_config.email ?? ''}';
@@ -229,27 +226,29 @@ class _FooterViewState extends State<FooterView> {
                             },
                             child: Text(_config.email ?? '', style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall)),
                           ),
-                  
+
                         ]),
+
                         Column(children: [
-                  
+
                           Image.asset(Images.contactUs, width: 50, height: 50),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
-                  
+
                           Text('contact_us'.tr, style: robotoBold),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
-                  
+
                           Text(_config.phone ?? '', style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall)),
-                  
+
                         ]),
+
                         Column(children: [
-                  
+
                           Image.asset(Images.findUsHere, width: 50, height: 50),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
-                  
+
                           Text('find_us_here'.tr, style: robotoBold),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
-                  
+
                           SizedBox(
                             width: 200,
                             child: Text(
@@ -258,7 +257,7 @@ class _FooterViewState extends State<FooterView> {
                               style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall),
                             ),
                           ),
-                  
+
                         ]),
                       ],
                     ),

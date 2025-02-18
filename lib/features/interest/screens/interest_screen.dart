@@ -58,7 +58,6 @@ class _InterestScreenState extends State<InterestScreen> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () => categoryController.addInterestSelection(index),
-                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                         child: Container(
                           margin: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
                           padding: const EdgeInsets.symmetric(

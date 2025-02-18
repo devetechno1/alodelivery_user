@@ -9,7 +9,6 @@ import 'package:sixam_mart/features/verification/screens/verification_screen.dar
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
@@ -154,7 +153,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
     String phone = _numberController.text.trim();
     String email = '';
 
-    String numberWithCountryCode = countryCode+phone.removeZerosInFirst;
+    String numberWithCountryCode = countryCode+phone;
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 

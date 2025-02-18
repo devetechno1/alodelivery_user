@@ -97,7 +97,6 @@ class _FlashSaleCardState extends State<FlashSaleCard> {
               child: InkWell(
                 hoverColor: Colors.transparent,
                 onTap: widget.soldOut ? null : () => Get.find<ItemController>().navigateToItemPage(activeProduct.item, context),
-                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                 child: TextHover(
                   builder: (hovered) {
                     return Container(
@@ -117,16 +116,16 @@ class _FlashSaleCardState extends State<FlashSaleCard> {
                               fit: BoxFit.cover, width: double.infinity, height: double.infinity,
                             ),
                           ),
-                    
+
                           DiscountTag(
                             discount: discount,
                             discountType: discountType,
                             freeDelivery: false,
                             isFloating: true,
                           ),
-                    
+
                           OrganicTag(item: activeProduct.item!, placeInImage: false),
-                    
+
                           ResponsiveHelper.isMobile(context) ? Positioned(
                             bottom: -15, left: 0, right: 0,
                             child: widget.soldOut ? Center(

@@ -226,32 +226,28 @@ class StoreCardWithDistance extends StatelessWidget {
                                 Text('from_you'.tr, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeExtraSmall)),
                               ]),
                             ),
-                            const Spacer(),
 
-                            Flexible(
-                              flex: 5,
-                              child: CustomButton(
-                                height: 30, width: fromAllStore? 70 : 65,
-                                radius: Dimensions.radiusSmall,
-                                onPressed: () {
-                                  if(Get.find<SplashController>().moduleList != null) {
-                                    for(ModuleModel module in Get.find<SplashController>().moduleList!) {
-                                      if(module.id == store.moduleId) {
-                                        Get.find<SplashController>().setModule(module);
-                                        break;
-                                      }
+                            CustomButton(
+                              height: 30, width: fromAllStore? 70 : 65,
+                              radius: Dimensions.radiusSmall,
+                              onPressed: () {
+                                if(Get.find<SplashController>().moduleList != null) {
+                                  for(ModuleModel module in Get.find<SplashController>().moduleList!) {
+                                    if(module.id == store.moduleId) {
+                                      Get.find<SplashController>().setModule(module);
+                                      break;
                                     }
                                   }
-                                  Get.toNamed(
-                                    RouteHelper.getStoreRoute(id: store.id, page: 'store'),
-                                    arguments: StoreScreen(store: store, fromModule: false),
-                                  );
-                                },
-                                buttonText: 'visit'.tr,
-                                color: Theme.of(context).primaryColor,
-                                textColor: Theme.of(context).cardColor,
-                                fontSize: Dimensions.fontSizeSmall,
-                              ),
+                                }
+                                Get.toNamed(
+                                  RouteHelper.getStoreRoute(id: store.id, page: 'store'),
+                                  arguments: StoreScreen(store: store, fromModule: false),
+                                );
+                              },
+                              buttonText: 'visit'.tr,
+                              color: Theme.of(context).primaryColor,
+                              textColor: Theme.of(context).cardColor,
+                              fontSize: Dimensions.fontSizeSmall,
                             ),
                           ]),
                         ),

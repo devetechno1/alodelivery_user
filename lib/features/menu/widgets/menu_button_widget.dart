@@ -7,7 +7,6 @@ import 'package:sixam_mart/features/auth/controllers/auth_controller.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -39,7 +38,7 @@ class MenuButtonWidget extends StatelessWidget {
               Get.find<AuthController>().socialLogout();
               Get.find<CartController>().clearCartList();
               Get.find<FavouriteController>().removeFavourite();
-              if(!ResponsiveHelper.isDesktop(context) || AppConstants.mustLogin) {
+              if(!ResponsiveHelper.isDesktop(context)) {
                 Get.offAllNamed(RouteHelper.getSignInRoute(RouteHelper.splash));
               } else{
                 Get.dialog(const Center(child: AuthDialogWidget(exitFromApp: false, backFromThis: false)));
