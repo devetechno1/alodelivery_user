@@ -32,7 +32,6 @@ import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/common/widgets/item_view.dart';
 import 'package:sixam_mart/common/widgets/menu_drawer.dart';
@@ -43,7 +42,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sixam_mart/features/home/widgets/module_view.dart';
 import 'package:sixam_mart/features/parcel/screens/parcel_category_screen.dart';
-import 'package:sixam_mart/features/cart/controllers/cart_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -264,15 +262,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: Center(child: Container(
                       width: Dimensions.webMaxWidth, height: Get.find<LocalizationController>().isLtr ? 60 : 70, color: Theme.of(context).colorScheme.surface,
                       child: Row(children: [
-                        (splashController.module != null && splashController.configModel!.module == null && splashController.moduleList != null && splashController.moduleList!.length != 1) ? InkWell(
-                          onTap: () {
-                            splashController.removeModule();
-                            Get.find<StoreController>().resetStoreData();
-                          },
-                          child: Image.asset(Images.moduleIcon, height: 25, width: 25, color: Theme.of(context).textTheme.bodyLarge!.color),
-                        ) : const SizedBox(),
-                        SizedBox(width: (splashController.module != null && splashController.configModel!.module == null && splashController.moduleList != null && splashController.moduleList!.length != 1) ? Dimensions.paddingSizeSmall : 0),
-
                         Expanded(child: InkWell(
                           onTap: () => Get.find<LocationController>().navigateToLocationScreen('home'),
                           child: Padding(
@@ -305,10 +294,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             }),
                           ),
                         )),
+                        
                         InkWell(
                           child: GetBuilder<NotificationController>(builder: (notificationController) {
                             return Stack(children: [
-                              Icon(CupertinoIcons.bell, size: 25, color: Theme.of(context).textTheme.bodyLarge!.color),
+                              Icon(CupertinoIcons.bell,  color: Theme.of(context).textTheme.bodyLarge!.color),
                               notificationController.hasNotification ? Positioned(top: 0, right: 0, child: Container(
                                 height: 10, width: 10, decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor, shape: BoxShape.circle,
@@ -319,6 +309,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           }),
                           onTap: () => Get.toNamed(RouteHelper.getNotificationRoute()),
                         ),
+                        if(splashController.module != null && splashController.configModel!.module == null && splashController.moduleList != null && splashController.moduleList!.length != 1) ...[
+                          const SizedBox(width: Dimensions.paddingSizeSmall),
+                          InkWell(
+                            onTap: () {
+                              splashController.removeModule();
+                              Get.find<StoreController>().resetStoreData();
+                            },
+                            child: Icon(Icons.home_outlined, size: 29, color: Theme.of(context).textTheme.bodyLarge!.color,fill: 0.1,weight: 0.1,),
+                          ),
+                        ]
                       ]),
                     )),
                     actions: const [SizedBox()],
