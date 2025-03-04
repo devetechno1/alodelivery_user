@@ -51,36 +51,25 @@ class ModuleDialogWidget extends StatelessWidget {
                         callback();
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+                        // padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                           color: Theme.of(context).cardColor,
                           boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 5)],
                         ),
-                        child: Row(children: [
-                    
-                          SizedBox(
-                            height: 80,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                              child: AspectRatio(
-                                aspectRatio: 3,
-                                child: CustomImage(
-                                  image: '${splashController.moduleList![index].thumbnailFullUrl}',
-                                  height: 80,
-                                  fit: BoxFit.cover,
-                                ),
+                        child: SizedBox(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                            child: AspectRatio(
+                              aspectRatio: 3,
+                              child: CustomImage(
+                                image: '${splashController.moduleList![index].thumbnailFullUrl}',
+                                height: 80,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          const SizedBox(width: Dimensions.paddingSizeExtraLarge),
-                    
-                          Text(
-                            splashController.moduleList![index].moduleName!,
-                            style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
-                          ),
-                    
-                        ]),
+                        ),
                       ),
                     ),
                   );

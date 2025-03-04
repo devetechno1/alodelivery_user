@@ -10,7 +10,6 @@ import 'package:sixam_mart/helper/address_helper.dart';
 import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/common/widgets/custom_image.dart';
 import 'package:sixam_mart/common/widgets/custom_loader.dart';
 import 'package:sixam_mart/common/widgets/title_widget.dart';
@@ -40,45 +39,30 @@ class ModuleView extends StatelessWidget {
         itemCount: splashController.moduleList!.length,
         shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-              color: Theme.of(context).cardColor,
-              border: Border.all(color: Theme.of(context).primaryColor, width: 0.15),
-              boxShadow: [BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.1), spreadRadius: 1, blurRadius: 3)],
-            ),
-            child: CustomInkWell(
-              onTap: () => splashController.switchModule(index, true),
-              padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-              radius: Dimensions.radiusDefault,
-              child: Row(children: [
-
-                SizedBox(
-                  height: 80,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                    child: AspectRatio(
-                      aspectRatio: 3,
-                      child: CustomImage(
-                        image: '${splashController.moduleList![index].thumbnailFullUrl}',
-                        height: 80,
-                        fit: BoxFit.cover,
-                      ),
+          return Align(
+            child: Container(
+              margin: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
+              clipBehavior: Clip.hardEdge,
+              constraints: const BoxConstraints(maxWidth: 600),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                boxShadow: [BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.1), spreadRadius: 1, blurRadius: 3)],
+              ),
+              child: CustomInkWell(
+                onTap: () => splashController.switchModule(index, true),
+                radius: Dimensions.radiusDefault,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                  child: AspectRatio(
+                    aspectRatio: 3,
+                    child: CustomImage(
+                      image: '${splashController.moduleList![index].thumbnailFullUrl}',
+                      height: 80,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                const SizedBox(width: Dimensions.paddingSizeExtraLarge),
-
-                Flexible(
-                  child: Text(
-                    splashController.moduleList![index].moduleName!,
-                    textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis,
-                    style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault),
-                  ),
-                ),
-
-              ]),
+              ),
             ),
           );
         },
@@ -169,35 +153,25 @@ class ModuleShimmer extends StatelessWidget {
       itemCount: 6,
       shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-            color: Theme.of(context).cardColor,
-            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
-          ),
-          child: Shimmer(
-            duration: const Duration(seconds: 2),
-            enabled: isEnabled,
-            child: Padding(
-              padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-              child: Row(children: [
-              
-                SizedBox(
+        return Align(
+          child: Container(
+            margin: const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
+            constraints: const BoxConstraints(maxWidth: 600),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              color: Theme.of(context).cardColor,
+              boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
+            ),
+            child: Shimmer(
+              duration: const Duration(seconds: 2),
+              enabled: isEnabled,
+              child: AspectRatio(
+                aspectRatio: 3,
+                child: Container(
                   height: 80,
-                  child: AspectRatio(
-                    aspectRatio: 3,
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall), color: Colors.grey[300]),
-                    ),
-                  ),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall), color: Colors.grey[300]),
                 ),
-                const SizedBox(width: Dimensions.paddingSizeExtraLarge),
-              
-                Container(height: 15, width: 50, color: Colors.grey[300]),
-              
-              ]),
+              ),
             ),
           ),
         );
