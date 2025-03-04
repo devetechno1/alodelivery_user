@@ -26,7 +26,7 @@ class FoodHomeScreen extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
       Container(
-        width: MediaQuery.of(context).size.width,
+        width: double.maxFinite,
         decoration: Get.find<ThemeController>().darkTheme ? null : const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(Images.foodModuleBannerBg),
@@ -38,7 +38,7 @@ class FoodHomeScreen extends StatelessWidget {
             BadWeatherWidget(),
 
             BannerView(isFeatured: false),
-            SizedBox(height: 12),
+            SizedBox(height: 6),
           ],
         ),
       ),
