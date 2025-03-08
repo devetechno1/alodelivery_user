@@ -21,6 +21,7 @@ import 'package:sixam_mart/helper/centralize_login_helper.dart';
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
+import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 
 class SignInView extends StatefulWidget {
@@ -178,7 +179,7 @@ class _SignInViewState extends State<SignInView> {
   
   void _otpLogin(AuthController authController, String countryDialCode, CentralizeLoginType loginType) async {
     String phone = _phoneController.text.trim();
-    String numberWithCountryCode = countryDialCode+phone;
+    String numberWithCountryCode = countryDialCode+phone.removeZerosInFirst;
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 
@@ -200,7 +201,7 @@ class _SignInViewState extends State<SignInView> {
   void _login(AuthController authController, CentralizeLoginType loginType) async {
     String phone = _phoneController.text.trim();
     String password = _passwordController.text.trim();
-    String numberWithCountryCode = authController.countryDialCode + phone;
+    String numberWithCountryCode = authController.countryDialCode + phone.removeZerosInFirst;
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 

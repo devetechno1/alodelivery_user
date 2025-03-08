@@ -21,6 +21,7 @@ import 'package:sixam_mart/features/verification/screens/verification_screen.dar
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
+import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
@@ -321,7 +322,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
 
   void _handleResponse(ResponseModel status, String countryCode) {
     String password = _passwordController.text.trim();
-    String numberWithCountryCode = countryCode + _phoneController.text.trim();
+    String numberWithCountryCode = countryCode + _phoneController.text.removeZerosInFirst;
     String email = _emailController.text.trim();
 
     if (status.isSuccess) {
@@ -380,7 +381,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
     String confirmPassword = _confirmPasswordController.text.trim();
     String referCode = _referCodeController.text.trim();
 
-    String numberWithCountryCode = countryCode + number;
+    String numberWithCountryCode = countryCode + number.removeZerosInFirst;
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 

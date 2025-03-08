@@ -13,6 +13,7 @@ import 'package:sixam_mart/features/auth/widgets/condition_check_box_widget.dart
 import 'package:sixam_mart/features/auth/widgets/pass_view_widget.dart';
 import 'package:sixam_mart/helper/custom_validator.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
+import 'package:sixam_mart/helper/string_helper.dart';
 import 'package:sixam_mart/helper/validate_check.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
@@ -1085,7 +1086,7 @@ class _DeliveryManRegistrationScreenState extends State<DeliveryManRegistrationS
               String phone = _phoneController.text.trim();
               String password = _passwordController.text.trim();
               String confirmPassword = _confirmPasswordController.text.trim();
-              String numberWithCountryCode = _countryDialCode!+phone;
+              String numberWithCountryCode = _countryDialCode!+phone.removeZerosInFirst;
               PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
 
               if(_formKeyStep1!.currentState!.validate()) {
