@@ -22,6 +22,8 @@ import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
 import 'package:sixam_mart/common/widgets/menu_drawer.dart';
 import 'package:sixam_mart/features/parcel/widgets/parcel_view_widget.dart';
 
+import '../../../common/widgets/not_logged_in_screen.dart';
+
 class ParcelLocationScreen extends StatefulWidget {
   final ParcelCategoryModel category;
   const ParcelLocationScreen({super.key, required this.category});
@@ -136,10 +138,14 @@ class _ParcelLocationScreenState extends State<ParcelLocationScreen> with Ticker
       endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
       body: SafeArea(
         child: GetBuilder<ParcelController>(builder: (parcelController) {
+          if(!AuthHelper.isLoggedIn()) {
+            return NotLoggedInScreen(callBack: (value){
+              initCall();
+              setState(() {});
+            });
+          }
           return Column(children: [
-
             Expanded(child: Column(children: [
-
               Center(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
@@ -147,7 +153,6 @@ class _ParcelLocationScreenState extends State<ParcelLocationScreen> with Ticker
                   color: Theme.of(context).cardColor,
                   child: Column(
                     children: [
-
                       TabBar(
                         controller: _tabController,
                         labelColor: Theme.of(context).primaryColor,

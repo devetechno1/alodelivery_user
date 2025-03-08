@@ -1,5 +1,6 @@
 class Images {
   static const String logo = 'assets/image/logo.png';
+  static const String authImage = 'assets/image/auth_image.png';
   static const String placeholder = 'assets/image/placeholder.jpg';
   static const String notificationPlaceholder = 'assets/image/notification_placeholder.jpg';
   static const String arabic = 'assets/image/arabic.png';
@@ -293,7 +294,6 @@ class Images {
   static const String highlightDarkBg = 'assets/image/highlight_dark_bg.svg';
   static const String favouriteIcon = 'assets/image/favourite_icon.svg';
   static const String unFavouriteIcon = 'assets/image/unfavourite_icon.svg';
-  static const String languageBg = 'assets/image/language_bg.svg';
   static const String orderConfirmIcon = 'assets/image/order_confirm_icon.svg';
   static const String pushNotificationIcon = 'assets/image/push_notification.svg';
   static const String referEarnIcon = 'assets/image/refer_earn_icon.svg';

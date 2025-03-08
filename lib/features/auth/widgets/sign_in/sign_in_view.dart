@@ -27,8 +27,10 @@ class SignInView extends StatefulWidget {
   final bool exitFromApp;
   final bool backFromThis;
   final bool fromResetPassword;
+  /// work in manual [ManualLoginWidget] widget like in [CentralizeLoginType.manual] ,[CentralizeLoginType.manualAndSocial],[CentralizeLoginType.manualAndOtp] and [CentralizeLoginType.manualAndSocialAndOtp].
+  final bool inSheetUI;
   final Function(bool val)? isOtpViewEnable;
-  const SignInView({super.key, required this.exitFromApp, required this.backFromThis, this.fromResetPassword = false, this.isOtpViewEnable});
+  const SignInView({super.key, required this.exitFromApp, required this.backFromThis, this.fromResetPassword = false, this.isOtpViewEnable, this.inSheetUI = false});
 
   @override
   State<SignInView> createState() => _SignInViewState();
@@ -69,7 +71,7 @@ class _SignInViewState extends State<SignInView> {
 
     });
 
-    if (!kIsWeb) {
+    if (!kIsWeb && !widget.inSheetUI) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         FocusScope.of(context).requestFocus(_phoneFocus);
       });
@@ -99,6 +101,7 @@ class _SignInViewState extends State<SignInView> {
 
       case CentralizeLoginType.manual:
         return ManualLoginWidget(
+          inSheetUI: widget.inSheetUI,
           phoneController: _phoneController, passwordController: _passwordController,
           phoneFocus: _phoneFocus, passwordFocus: _passwordFocus, onWebSubmit: (){},
           onClickLoginButton: () {
@@ -111,6 +114,7 @@ class _SignInViewState extends State<SignInView> {
 
       case CentralizeLoginType.manualAndSocial:
         return ManualLoginWidget(
+          inSheetUI: widget.inSheetUI,
           phoneController: _phoneController, passwordController: _passwordController, phoneFocus: _phoneFocus, passwordFocus: _passwordFocus,
           socialEnable: true,
           onWebSubmit: (){}, onClickLoginButton: () {
@@ -120,6 +124,7 @@ class _SignInViewState extends State<SignInView> {
 
       case CentralizeLoginType.manualAndOtp:
         return ManualLoginWidget(
+          inSheetUI: widget.inSheetUI,
           phoneController: _phoneController, passwordController: _passwordController, phoneFocus: _phoneFocus, passwordFocus: _passwordFocus,
           onOtpViewClick: () {
             widget.isOtpViewEnable!(true);
@@ -149,6 +154,7 @@ class _SignInViewState extends State<SignInView> {
 
       case CentralizeLoginType.manualAndSocialAndOtp:
         return ManualLoginWidget(
+          inSheetUI: widget.inSheetUI,
           phoneController: _phoneController, passwordController: _passwordController, phoneFocus: _phoneFocus, passwordFocus: _passwordFocus,
           onWebSubmit: (){}, socialEnable: true,
           onClickLoginButton: () {

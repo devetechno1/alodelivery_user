@@ -24,9 +24,10 @@ class ManualLoginWidget extends StatelessWidget {
   final Function()? onWebSubmit;
   final bool socialEnable;
   final Function()? onOtpViewClick;
+  final bool inSheetUI;
   const ManualLoginWidget({
     super.key, required this.phoneController, required this.phoneFocus, required this.onClickLoginButton, required this.passwordController,
-    required this.passwordFocus, this.onWebSubmit, this.socialEnable = false, this.onOtpViewClick,
+    required this.passwordFocus, this.onWebSubmit, this.socialEnable = false, this.onOtpViewClick, required this.inSheetUI,
   });
 
   @override
@@ -39,10 +40,13 @@ class ManualLoginWidget extends StatelessWidget {
       }
       
       return Column(mainAxisSize: MainAxisSize.min, children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text('login'.tr, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge)),
-        ),
+        if(inSheetUI)
+          const SizedBox(height: Dimensions.paddingSizeLarge)
+        else
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text('login'.tr, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge)),
+          ),
         const SizedBox(height: Dimensions.paddingSizeDefault),
 
         CustomTextField(
@@ -146,6 +150,7 @@ class ManualLoginWidget extends StatelessWidget {
         ),
         const SizedBox(height: Dimensions.paddingSizeLarge),
 
+        if(!inSheetUI)
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('do_not_have_account'.tr, style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
 

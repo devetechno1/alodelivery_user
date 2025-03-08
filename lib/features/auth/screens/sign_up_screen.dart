@@ -7,6 +7,8 @@ import 'package:sixam_mart/common/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'auth_bottom_sheet_screen.dart';
+
 class SignUpScreen extends StatefulWidget {
   final bool exitFromApp;
   const SignUpScreen({super.key, this.exitFromApp = false});
@@ -18,7 +20,8 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ResponsiveHelper.isDesktop(context)
+    ? Scaffold(
       appBar: (ResponsiveHelper.isDesktop(context) ? null : !widget.exitFromApp ? AppBar(leading: IconButton(
         onPressed: () => Get.back(),
         icon: Icon(Icons.arrow_back_ios_rounded, color: Theme.of(context).textTheme.bodyLarge!.color),
@@ -65,6 +68,12 @@ class SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ),
+    )
+    : 
+    AuthBottomSheetScreen(
+      onPressBackButton: Get.back,
+      showAppBar: !widget.exitFromApp,
+      child: const SignUpWidget(inBottomSheet: true),
     );
   }
 }

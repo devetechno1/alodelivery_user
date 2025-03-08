@@ -7,7 +7,6 @@ import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart/helper/address_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
 
 class ParcelAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -27,12 +26,6 @@ class ParcelAppBarWidget extends StatelessWidget implements PreferredSizeWidget 
       title: GetBuilder<SplashController>(
         builder: (splashController) {
           return Row(children: [
-            (splashController.module != null && splashController.configModel!.module == null && splashController.moduleList != null && splashController.moduleList!.length != 1) ? InkWell(
-              onTap: () => splashController.removeModule(),
-              child: Image.asset(Images.moduleIcon, height: 25, width: 25, color: Theme.of(context).textTheme.bodyLarge!.color),
-            ) : const SizedBox(),
-            SizedBox(width: (splashController.module != null && splashController.configModel!.module
-                == null && splashController.moduleList != null && splashController.moduleList!.length != 1) ? Dimensions.paddingSizeSmall : 0),
             Expanded(child: InkWell(
               onTap: () => Get.find<LocationController>().navigateToLocationScreen('home'),
               child: Padding(
@@ -83,6 +76,13 @@ class ParcelAppBarWidget extends StatelessWidget implements PreferredSizeWidget 
               }),
               onTap: () => Get.toNamed(RouteHelper.getNotificationRoute()),
             ),
+            if(splashController.module != null && splashController.configModel!.module == null && splashController.moduleList != null && splashController.moduleList!.length != 1) ...[
+              const SizedBox(width: Dimensions.paddingSizeSmall),
+              InkWell(
+                onTap: splashController.removeModule,
+                child: Icon(Icons.home_outlined, size: 29, color: Theme.of(context).textTheme.bodyLarge!.color,fill: 0.1,weight: 0.1,),
+              ),
+            ]
           ]);
         }
       ),

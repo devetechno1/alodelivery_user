@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'auth_bottom_sheet_screen.dart';
+
 class SignInScreen extends StatefulWidget {
   final bool exitFromApp;
   final bool backFromThis;
@@ -57,20 +59,8 @@ class SignInScreenState extends State<SignInScreen> {
           return;
         }
       },
-      child: Scaffold(
-        backgroundColor: ResponsiveHelper.isDesktop(context) ? Colors.transparent : Theme.of(context).cardColor,
-        appBar: (ResponsiveHelper.isDesktop(context) ? null : !widget.exitFromApp ? AppBar(leading: IconButton(
-            onPressed: () {
-              if(widget.fromNotification || widget.fromResetPassword) {
-                Navigator.pushNamed(context, RouteHelper.getInitialRoute());
-              } else {
-                Get.back();
-              }
-            },
-            icon: Icon(Icons.arrow_back_ios_rounded, color: Theme.of(context).textTheme.bodyLarge!.color),
-          ),
-          elevation: 0, backgroundColor: Theme.of(context).cardColor, actions: const [SizedBox()],
-        ) : null),
+      child: ResponsiveHelper.isDesktop(context)? Scaffold(
+        backgroundColor: Colors.transparent,
         endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
 
         body: SafeArea(
@@ -82,18 +72,17 @@ class SignInScreenState extends State<SignInScreen> {
               margin: context.width > 700 ? const EdgeInsets.all(50) : EdgeInsets.zero,
               decoration: context.width > 700 ? BoxDecoration(
                 color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                boxShadow: ResponsiveHelper.isDesktop(context) ? null : const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
               ) : null,
               child: SingleChildScrollView(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
 
-                  ResponsiveHelper.isDesktop(context) ? Align(
+                  Align(
                     alignment: Alignment.topRight,
                     child: IconButton(
                       onPressed: () => Get.back(),
                       icon: const Icon(Icons.clear),
                     ),
-                  ) : const SizedBox(),
+                  ),
 
                   Image.asset(Images.logo, width: 125),
                   const SizedBox(height: Dimensions.paddingSizeExtremeLarge),
@@ -104,6 +93,24 @@ class SignInScreenState extends State<SignInScreen> {
               ),
             ),
           ),
+        ),
+      )
+      :
+      AuthBottomSheetScreen(
+        onPressBackButton: () {
+          if(widget.fromNotification || widget.fromResetPassword) {
+            Navigator.pushNamed(context, RouteHelper.getInitialRoute());
+          } else {
+            Get.back();
+          }
+        },
+        showAppBar: !widget.exitFromApp,
+        child: SignInView(
+          inSheetUI: true, 
+          exitFromApp: widget.exitFromApp, 
+          backFromThis: widget.backFromThis, 
+          fromResetPassword: widget.fromResetPassword, 
+          isOtpViewEnable: (v){},
         ),
       ),
     );

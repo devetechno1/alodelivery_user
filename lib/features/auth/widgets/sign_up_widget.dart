@@ -27,7 +27,8 @@ import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
 
 class SignUpWidget extends StatefulWidget {
-  const SignUpWidget({super.key});
+  const SignUpWidget({super.key, this.inBottomSheet = false});
+  final bool inBottomSheet;
 
   @override
   SignUpWidgetState createState() => SignUpWidgetState();
@@ -269,33 +270,33 @@ class SignUpWidgetState extends State<SignUpWidget> {
                     onPressed: authController.acceptTerms ? () => _register(authController, _countryDialCode!) : null,
                   ),
                   SizedBox(height: isDesktop ? Dimensions.paddingSizeExtraLarge : Dimensions.paddingSizeDefault),
+                  if(!widget.inBottomSheet)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: Dimensions.paddingSizeLarge),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                        Text('already_have_account'.tr, style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: Dimensions.paddingSizeLarge),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Text('already_have_account'.tr, style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
+                        InkWell(
+                          onTap: authController.isLoading ? null : () {
+                            if(isDesktop){
+                              Get.back();
+                              Get.dialog(const Center(child: AuthDialogWidget(exitFromApp: false, backFromThis: false)));
 
-                      InkWell(
-                        onTap: authController.isLoading ? null : () {
-                          if(isDesktop){
-                            Get.back();
-                            Get.dialog(const Center(child: AuthDialogWidget(exitFromApp: false, backFromThis: false)));
-
-                          }else{
-                            if(Get.currentRoute == RouteHelper.signUp) {
-                            Get.back();
-                            } else {
-                              Get.toNamed(RouteHelper.getSignInRoute(RouteHelper.signUp));
+                            }else{
+                              if(Get.currentRoute == RouteHelper.signUp) {
+                                Get.back();
+                              } else {
+                                Get.toNamed(RouteHelper.getSignInRoute(RouteHelper.signUp));
+                              }
                             }
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                          child: Text('sign_in'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                            child: Text('sign_in'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
+                          ),
                         ),
-                      ),
-                    ]),
-                  ),
+                      ]),
+                    ),
 
                 ]),
             ),
