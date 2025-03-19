@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sixam_mart/features/home/widgets/brands_view_widget.dart';
 import 'package:sixam_mart/features/home/widgets/highlight_widget.dart';
 import 'package:sixam_mart/features/home/widgets/views/top_offers_near_me.dart';
@@ -30,9 +31,13 @@ class ShopHomeScreen extends StatelessWidget {
 
       Container(
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(Images.shopModuleBannerBg),
+            colorFilter: ColorFilter.mode(
+              context.theme.primaryColor,
+              BlendMode.srcIn,
+            ),
+            image: const AssetImage(Images.shopModuleBannerBg),
             fit: BoxFit.cover,
           ),
         ),

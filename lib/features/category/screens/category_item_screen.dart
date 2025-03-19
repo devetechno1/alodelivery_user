@@ -345,14 +345,12 @@ class CategoryItemScreenState extends State<CategoryItemScreen> with TickerProvi
                           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                           color: index == catController.subCategoryIndex ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.transparent,
                         ),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                          Text(
-                            catController.subCategoryList![index].name!,
-                            style: index == catController.subCategoryIndex
-                                ? robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor)
-                                : robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
-                          ),
-                        ]),
+                        child: Text(
+                          catController.subCategoryList![index].name!,
+                          style: index == catController.subCategoryIndex
+                              ? robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor)
+                              : robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+                        ),
                       ),
                     );
                   },

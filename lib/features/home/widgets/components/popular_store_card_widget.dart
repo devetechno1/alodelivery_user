@@ -45,7 +45,7 @@ class PopularStoreCard extends StatelessWidget {
                   Positioned(
                     bottom: 0, left: 0, right: 0,
                     child: Container(
-                      width: double.infinity, height: 89,
+                      width: double.infinity, height: 90,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
@@ -84,20 +84,24 @@ class PopularStoreCard extends StatelessWidget {
                                     Text(store.name ?? '', maxLines: 1, overflow: TextOverflow.ellipsis, style: robotoMedium),
                                     Text(store.address ?? '', maxLines: 1, overflow: TextOverflow.ellipsis, style: robotoRegular.copyWith(color: Theme.of(context).disabledColor)),
 
-                                    Row(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.star, color: Theme.of(context).primaryColor, size: 15),
-                                            const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                                            Text(store.avgRating!.toStringAsFixed(1), style: robotoRegular),
-                                            const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                                            Text('(${store.ratingCount})', style: robotoRegular.copyWith(color: Theme.of(context).disabledColor)),
-                                          ],
-                                        ),
-                                        const SizedBox(width: Dimensions.paddingSizeDefault),
-                                        Text('${store.itemCount}' ' ' 'items'.tr, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
-                                      ],
+                                    Flexible(
+                                      child: Row(
+                                        children: [
+                                          Flexible(
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.star, color: Theme.of(context).primaryColor, size: 15),
+                                                const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                                Text(store.avgRating!.toStringAsFixed(1), style: robotoRegular),
+                                                const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                                Text('(${store.ratingCount})', style: robotoRegular.copyWith(color: Theme.of(context).disabledColor)),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: Dimensions.paddingSizeDefault),
+                                          Text('${store.itemCount}' ' ' 'items'.tr, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

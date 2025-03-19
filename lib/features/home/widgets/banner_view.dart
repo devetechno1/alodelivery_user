@@ -131,6 +131,7 @@ class BannerView extends StatelessWidget {
                 );
               }).toList(),
             ),
+            const SizedBox(height: 12),
 
           ],
         ) : Shimmer(

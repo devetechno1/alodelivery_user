@@ -260,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     surfaceTintColor: Theme.of(context).colorScheme.surface,
                     backgroundColor: ResponsiveHelper.isDesktop(context) ? Colors.transparent : Theme.of(context).colorScheme.surface,
                     title: Center(child: Container(
-                      width: Dimensions.webMaxWidth, height: Get.find<LocalizationController>().isLtr ? 60 : 70, color: Theme.of(context).colorScheme.surface,
+                      width: Dimensions.webMaxWidth, height: Get.find<LocalizationController>().isLtr ? 65 : 75, color: Theme.of(context).colorScheme.surface,
                       child: Row(children: [
                         Expanded(child: InkWell(
                           onTap: () => Get.find<LocationController>().navigateToLocationScreen('home'),

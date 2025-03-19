@@ -27,9 +27,13 @@ class FoodHomeScreen extends StatelessWidget {
 
       Container(
         width: double.maxFinite,
-        decoration: Get.find<ThemeController>().darkTheme ? null : const BoxDecoration(
+        decoration: Get.find<ThemeController>().darkTheme ? null : BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(Images.foodModuleBannerBg),
+            colorFilter: ColorFilter.mode(
+              context.theme.primaryColor,
+              BlendMode.srcIn,
+            ),
+            image: const AssetImage(Images.foodModuleBannerBg),
             fit: BoxFit.cover,
           ),
         ),
@@ -38,7 +42,6 @@ class FoodHomeScreen extends StatelessWidget {
             BadWeatherWidget(),
 
             BannerView(isFeatured: false),
-            SizedBox(height: 6),
           ],
         ),
       ),

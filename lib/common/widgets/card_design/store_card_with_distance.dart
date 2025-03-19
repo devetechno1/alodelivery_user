@@ -142,7 +142,7 @@ class StoreCardWithDistance extends StatelessWidget {
                       Expanded(
                         flex: 3,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 95),
+                          padding: const EdgeInsetsDirectional.only(start: 95),
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
@@ -182,7 +182,7 @@ class StoreCardWithDistance extends StatelessWidget {
                            Row(children: [
                              if(store.ratingCount! > 0)
                              Padding(
-                               padding: const EdgeInsets.only(right: Dimensions.paddingSizeDefault),
+                               padding: const EdgeInsetsDirectional.only(end: Dimensions.paddingSizeDefault),
                                child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
 
                                  Icon(Icons.star, color: Theme.of(context).primaryColor, size: 14),
@@ -260,8 +260,8 @@ class StoreCardWithDistance extends StatelessWidget {
           ),
         ),
 
-        Positioned(
-          top: fromTopOffers! ? 40 : 60, left: 15,
+        PositionedDirectional(
+          top: fromTopOffers! ? 40 : 60, start: 15,
           child: Stack(
             clipBehavior: Clip.none,
             children: [

@@ -447,7 +447,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
               );
             }
           } else if(orderAmount < checkoutController.store!.minimumOrder! && widget.storeId == null) {
-            showCustomSnackBar('${'minimum_order_amount_is'.tr} ${checkoutController.store!.minimumOrder}');
+            showCustomSnackBar('${'order_amount_is'.tr} ${checkoutController.store!.minimumOrder}');
           }else if(checkoutController.tipController.text.isNotEmpty && checkoutController.tipController.text != 'not_now' && double.parse(checkoutController.tipController.text.trim()) < 0) {
             showCustomSnackBar('tips_can_not_be_negative'.tr);
           }else if((checkoutController.selectedDateSlot == 0 && todayClosed) || (checkoutController.selectedDateSlot == 1 && tomorrowClosed)) {

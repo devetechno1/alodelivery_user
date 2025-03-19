@@ -43,7 +43,7 @@ class PopularStoreView extends StatelessWidget {
           ),
 
           SizedBox(
-            height: 160,
+            height: 170,
             child: storeList != null ? ListView.builder(
               controller: ScrollController(),
               physics: const BouncingScrollPhysics(),

@@ -43,7 +43,7 @@ class StoreCard extends StatelessWidget {
     return Stack(children: [
 
       Container(
-        width: 300,
+        width: 350,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),

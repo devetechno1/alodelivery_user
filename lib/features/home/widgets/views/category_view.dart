@@ -32,11 +32,11 @@ class CategoryView extends StatelessWidget {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 158,
+                    height: 170,
                     child: categoryController.categoryList != null ? ListView.builder(
                       controller: scrollController,
                       itemCount: categoryController.categoryList!.length > 10 ? 10 : categoryController.categoryList!.length,
-                      padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall, top: Dimensions.paddingSizeDefault),
+                      padding: const EdgeInsetsDirectional.only(start: Dimensions.paddingSizeSmall, top: Dimensions.paddingSizeDefault),
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
@@ -56,7 +56,7 @@ class CategoryView extends StatelessWidget {
                               width: 80,
                               child: Column(children: [
                                 SizedBox(
-                                  height: 75, width: 75,
+                                  height: 80, width: 75,
                                   child: Stack(children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(Dimensions.radiusSmall),

@@ -135,18 +135,6 @@ class ItemWidget extends StatelessWidget {
 
                         isAvailable ? const SizedBox() : NotAvailableWidget(isStore: isStore),
 
-                        Positioned(
-                          top: 5, left: 5,
-                          child: GetBuilder<FavouriteController>(builder: (favouriteController) {
-                            bool isWished = isStore ? favouriteController.wishStoreIdList.contains(store!.id) : favouriteController.wishItemIdList.contains(item!.id);
-                            return CustomFavouriteWidget(
-                              isWished: isWished,
-                              isStore: isStore,
-                              store: store,
-                              item: item,
-                            );
-                          }),
-                        ),
                       ]),
                       const SizedBox(width: Dimensions.paddingSizeSmall),
 
@@ -258,6 +246,11 @@ class ItemWidget extends StatelessWidget {
                             ) : const SizedBox(),
                           ]),
 
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(end: Dimensions.paddingSizeSmall),
+                            child: Text("${item?.description}",maxLines: 1,overflow: TextOverflow.ellipsis),
+                          ),
+
                         ]),
                       ),
 
@@ -289,6 +282,19 @@ class ItemWidget extends StatelessWidget {
             discount: discount, discountType: discountType,
             freeDelivery: isStore ? store!.freeDelivery : false,
         )) : const SizedBox(),
+
+        PositionedDirectional(
+          top: 10, end: 10,
+          child: GetBuilder<FavouriteController>(builder: (favouriteController) {
+            bool isWished = isStore ? favouriteController.wishStoreIdList.contains(store!.id) : favouriteController.wishItemIdList.contains(item!.id);
+            return CustomFavouriteWidget(
+              isWished: isWished,
+              isStore: isStore,
+              store: store,
+              item: item,
+            );
+          }),
+        ),
 
       ],
     );

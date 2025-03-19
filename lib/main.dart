@@ -166,7 +166,7 @@ class _MyAppState extends State<MyApp> {
             defaultTransition: Transition.topLevel,
             transitionDuration: const Duration(milliseconds: 500),
             builder: (BuildContext context, widget) {
-              return MediaQuery(data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1)), child: Material(
+              return MediaQuery(data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.2)), child: Material(
                 child: Stack(children: [
 
                   widget!,

@@ -60,7 +60,7 @@ class _ItemsViewState extends State<ItemsView> {
           //     : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 2 : 3.8
           //     : 3.3,
           mainAxisExtent: ResponsiveHelper.isDesktop(context) && widget.isStore ? 220
-              : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 200 : 122
+              : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 220 : 122
               : 122,
           crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : ResponsiveHelper.isDesktop(context) && widget.stores != null  ? 3 : 3,
         ),

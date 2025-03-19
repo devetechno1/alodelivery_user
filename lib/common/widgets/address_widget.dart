@@ -42,18 +42,20 @@ class AddressWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(mainAxisSize: MainAxisSize.min, children: [
-                      Image.asset(
-                        address!.addressType == 'home' ? Images.homeIcon : address!.addressType == 'office' ? Images.workIcon : Images.otherIcon,
-                        color: Theme.of(context).primaryColor, height: ResponsiveHelper.isDesktop(context) ? 25 : 20, width: ResponsiveHelper.isDesktop(context) ? 25 : 20,
-                      ),
-                      const SizedBox(width: Dimensions.paddingSizeSmall),
-
-                      Text(
-                        address!.addressType!.tr,
-                        style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault),
-                      ),
-                    ]),
+                    Flexible(
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        Image.asset(
+                          address!.addressType == 'home' ? Images.homeIcon : address!.addressType == 'office' ? Images.workIcon : Images.otherIcon,
+                          color: Theme.of(context).primaryColor, height: ResponsiveHelper.isDesktop(context) ? 25 : 20, width: ResponsiveHelper.isDesktop(context) ? 25 : 20,
+                        ),
+                        const SizedBox(width: Dimensions.paddingSizeSmall),
+                      
+                        Text(
+                          address!.addressType!.tr,
+                          style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault),
+                        ),
+                      ]),
+                    ),
                     const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
                     Text(
